@@ -33,6 +33,8 @@ int main()
 
 	printf("re_printf: 10.15f: %010.15f\n", f);
 	ft_printf("ft_printf: 10.15f: %010.15f\n", f);
+	printf("re_printf: 10.2f: %010.2f\n", 4.999);
+	ft_printf("ft_printf: 10.2f: %010.2f\n", 4.999);
 	printf("re_printf: 010.4f: %010.4f\n", f);
 	ft_printf("ft_printf: 010.4f: %010.4f\n", f);
 	printf("re_printf: +10.4f: %+10.4f\n", f);
@@ -40,12 +42,12 @@ int main()
 	printf("re_printf: +10.30Lf: %+10.30Lf\n", ld);
 	ft_printf("ft_printf: +10.30Lf: %+10.30Lf\n", ld);
 
-/*
+
 	ft_printf("c: \n");
 	printf("re_printf:%05c\n", c);
 	ft_printf("ft_printf:%05c\n", c);
 	ft_printf("\n");
-/*
+
 	ft_printf("s: \n");
 	printf("re_printf:% 30.3s\n", str);
 	ft_printf("ft_printf:% 30.3s\n", str);
@@ -195,8 +197,8 @@ int main()
 	printf("re_printf:+010.7llp: %+010.llp\n", ll);
 	ft_printf("ft_printf:+010.7llp: %+010.7llp\n", ll);
 	ft_printf("\n");
-/*
 
+/*
 	printf ("d&i: Signed decimal integer: %d  %i\n", 42, -42);// [−32,767, +32,767]
 	printf ("o: Unsigned octal: %o \n", 42);
 	printf ("u: Unsigned decimal integer: %u \n", 42);// [0, 65,535]
@@ -231,7 +233,7 @@ int main()
 	printf ("l: d&i: long int: %ld  %li\n", 127, -128);// [−2,147,483,647, +2,147,483,647]
 	printf ("l: o&u&x&X: Unsigned long int: %lo %lu %lx %lX\n",  234, 234, 234, 234); // [0, 4,294,967,295]
 	printf ("l: f: double: %lf\n", 42.1234567890123456789);
-	//printf ("L: f: long double: %Lf\n", 42.1234567890123456789);
+	printf ("L: f: long double: %Lf\n", 42.1234567890123456789);
 */
 	return (0);
 }

@@ -59,6 +59,39 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 	return (str);
 }
 
+static char *rounding_nbr(char *str, int precis)
+{
+	int i;
+	char *temp;
+	int count_digit;
+
+	temp = str;
+	count_digit = 0;
+	while(str[count_digit] != '.')
+		count_digit++;
+	i = precis + count_digit;
+	if (temp[precis + count_digit + 1] > '4')
+	{
+		if(temp[precis + count_digit] != '9')
+			temp[precis + count_digit] += 1;
+		else if (temp[precis + count_digit] == '9')
+		{
+			while(temp[i] == '9')
+			{
+				temp[i] = '0';
+				i--;
+			}
+			if(temp[i] == '.')
+				i--;
+			temp[i] += 1;
+		}
+	}
+		if(!(str = ft_strndup(temp, precis + count_digit + 1)))
+			return (0);
+		ft_strdel(&temp);
+		return (str);
+}
+
 static char		*put_precision(long double nbr, char *str, t_attribute *attr)
 {
 	char *aft_decimal;
@@ -70,7 +103,7 @@ static char		*put_precision(long double nbr, char *str, t_attribute *attr)
 	nbr -= bef_decimal;
 	if(!(aft_decimal = ft_strnew(2)))
 		return (0);
-	while(i < attr->precis)
+	while(i <= attr->precis)
 	{
 		nbr *= 10;
 		if (!(aft_decimal = conver_signed_to_str(nbr)))
@@ -81,6 +114,7 @@ static char		*put_precision(long double nbr, char *str, t_attribute *attr)
 		nbr -= bef_decimal;
 		i++;
 	}
+	str = rounding_nbr(str, attr->precis);
 	return (str);
 }
 
