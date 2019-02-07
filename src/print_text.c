@@ -33,7 +33,7 @@ int print_character(va_list ap, int len, t_attribute *attr)
 	c = va_arg(ap, int);
 	len = sizeof(char);
 	if (!(attr->flag.min_0 == '-'))
-		print_0_space(len, attr);
+		len += print_0_space(len, attr);
 	ft_putchar(c);
 	return (len);
 }
@@ -43,6 +43,7 @@ int print_string(va_list ap, int len, t_attribute *attr)
 	char	*str;
 	char	*conv_prec;
 
+	len = 0;
 	str = va_arg(ap, char *);
 	conv_prec = NULL;
 	if ((!(attr->flag.min_0 == '-') && (attr->precis)))
@@ -54,7 +55,7 @@ int print_string(va_list ap, int len, t_attribute *attr)
 	len = ft_strlen(str);
 	if ((!(attr->flag.min_0 == '-') && (attr->width)))
 	{
-		print_0_space(len, attr);
+		len += print_0_space(len, attr);
 	}
 	ft_putstr(str);
 	if(conv_prec)

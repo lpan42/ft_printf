@@ -31,6 +31,25 @@ int main()
 	double f = 3.19; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
+	ft_printf("ft_printf: %010x\n", 542);
+	printf("re_printf: %010x\n", 542);
+	ft_printf("ft_printf: %010d\n", 542);
+	printf("re_printf: %010d\n", 542);
+	ft_printf("%#x\n", 0);
+	printf("%#x\n", 0);
+	ft_printf("%#o\n", 0);
+	printf("%#o\n", 0);
+	ft_printf("%#08x\n", 42);
+	printf("%#08x\n", 42);
+	printf("re_printf:#015x: %#015x\n", i);
+	ft_printf("ft_printf:#015x: %#015x\n", i);
+
+/*
+	printf("re_printf: %5%\n");
+	ft_printf("ft_printf: %5%\n");
+	ft_printf("\n");
+
+	ft_printf("f: \n");
 	printf("re_printf: 10.15f: %010.15f\n", f);
 	ft_printf("ft_printf: 10.15f: %010.15f\n", f);
 	printf("re_printf: 10.2f: %010.2f\n", 4.999);
@@ -166,9 +185,6 @@ int main()
 	ft_printf("ft_printf:8.7lX: %8.7lX\n", l);
 	printf("re_printf:+010.7llX: %+010.llX\n", ll);
 	ft_printf("ft_printf:+010.7llX: %+010.7llX\n", ll);
-	ft_printf("\n");
-
-	printf ("c: Characters: %c %c \n", 'a', 65);//[0, 255] or [−127, +127]
 	ft_printf("\n");
 
 	ft_printf("p: \n");

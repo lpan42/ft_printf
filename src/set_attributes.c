@@ -128,8 +128,7 @@ int		set_attributes(char *format, t_attribute *attr)
 		format += i;
 	while(get_conversion(*format, attr))
 		format++;
-	if (format == ver)
-		return (0);
-
+	//if (format == ver)
+	//	return (0);
 	return (format - ver);
 }

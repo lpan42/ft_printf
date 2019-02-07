@@ -39,14 +39,20 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 	char *temp;
 
 	temp = str;
-	if (attr->width && attr->flag.min_0 != '-')
+	if (attr->width)
 	{
 		if(len < attr->width)
 		{
 			if(!(space = ft_strnew(attr->width - len + 1)))
 				return (0);
-			ft_memset(space, ' ', attr->width - len);
-			temp = ft_strjoin(space, str);
+			if(attr->flag.min_0 == '0')
+				ft_memset(space, '0', attr->width - len);
+			else
+				ft_memset(space, ' ', attr->width - len);
+			if(attr->flag.min_0 != '-')
+				temp = ft_strjoin(space, str);
+			else
+				temp = ft_strjoin(str, space);
 			str = temp;
 			ft_strdel(&space);
 		}
@@ -87,13 +93,14 @@ static char		*put_flag(unsigned long long nbr, t_attribute *attr, int base)
 	sharp = NULL;
 	if(attr->flag.sharp)
 	{
-		if(attr->conver == 'o')
+		if(attr->conver == 'o' && nbr != 0)
 		{
 			if(!(sharp = ft_strnew(2)))
 				return (0);
 			sharp[0] = '0';
 		}
-		if(attr->conver == 'x' || attr->conver == 'X' || attr->conver == 'p')
+		if((attr->conver == 'x' || attr->conver == 'X' || attr->conver == 'p')
+			&& (nbr != 0))
 		{
 			if(!(sharp = ft_strnew(3)))
 				return (0);

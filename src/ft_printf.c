@@ -19,26 +19,33 @@ int		print_specifiers(t_attribute *attr, va_list ap)
 
 	len = 0;
 	if (attr->conver == 'c')
-		print_character(ap, len, attr);
+		len = print_character(ap, len, attr);
 	if (attr->conver == 's')
-		print_string(ap, len, attr);
+		len = print_string(ap, len, attr);
 	if (attr->conver == 'd' || attr->conver == 'i')
-		print_signed_nbr(ap, len, attr);
+		len = print_signed_nbr(ap, len, attr);
 	if (attr->conver == 'u')
-		print_unsigned_nbr(ap, len, attr, 10);
+		len = print_unsigned_nbr(ap, len, attr, 10);
 	if (attr->conver == 'o')
-		print_unsigned_nbr(ap, len, attr, 8);
+		len = print_unsigned_nbr(ap, len, attr, 8);
 	if (attr->conver == 'x' || attr->conver == 'X' || attr->conver == 'p')
-		print_unsigned_nbr(ap, len, attr, 16);
+		len = print_unsigned_nbr(ap, len, attr, 16);
 	if (attr->conver == 'f')
-		print_float(ap, len, attr);
+		len = print_float(ap, len, attr);
 	return(len);
 }
 
-int		print_output(char *format, va_list ap)
+int		ft_printf(char *format, ...)
 {
 	t_attribute		attr;
-	int len = 0;
+	va_list	ap;
+	int ret; //final return of ft_printf
+	int	len; //print len
+	int count; //input count
+
+	ret = 0;
+	len = 0;
+	count = 0;
 	attr.conver = '\0';
 	attr.flag.sharp = '\0';
 	attr.flag.min_0 = '\0';
@@ -46,29 +53,6 @@ int		print_output(char *format, va_list ap)
 	attr.width = 0;
 	attr.precis = 0;
 	attr.length = none;
-
-	len = set_attributes(format, &attr);
-/*
-	printf("flag.sharp: %c\n", attr.flag.sharp);
-	printf("flag.min_0: %c\n", attr.flag.min_0);
-	printf("flag.plus_spce: %c\n", attr.flag.plus_spce);
-	printf("conver: %c\n", attr.conver);
-	printf("width: %d\n", attr.width);
-	printf("precis: %d\n", attr.precis);
-	printf("length: %d\n", attr.length);
-*/
-	print_specifiers(&attr, ap);
-	return (len);
-}
-
-int		ft_printf(char *format, ...)
-{
-	va_list	ap;
-	int count;
-	int	len;
-
-	count = 0;
-	len = 0;
 	va_start(ap, format);
 	while (*format)
 	{
@@ -77,23 +61,26 @@ int		ft_printf(char *format, ...)
 			format++;
 			if(*format != '%')
 			{
-				len = print_output(format, ap);
-				count += len;
-				format += len;
+				count = set_attributes(format, &attr);
+				len = print_specifiers(&attr, ap);
+				ret += len;
+				format += count;
 			}
 			else
 			{
 				ft_putchar('%');
+				ret++;
 				format++;
 			}
 		}
 		else
 		{
 			ft_putchar(*format);
-			count++;
+			ret++;
 			format++;
 		}
 	}
 	va_end(ap);
-return (count);
+	//printf("\nret: %d\n", ret);
+return (ret);
 }

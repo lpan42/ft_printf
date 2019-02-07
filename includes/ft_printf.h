@@ -46,7 +46,6 @@ typedef struct	s_attribute
 int		set_attributes(char *format, t_attribute *attr);
 char	*conver_signed_to_str(signed long long n);
 char	*conver_unsigned_to_str(unsigned long long n, int base, t_attribute *attr);
-int		print_output(char *format, va_list ap);
 int		print_specifiers(t_attribute *attr, va_list ap);
 int		print_unsigned_nbr(va_list ap, int len, t_attribute *attr, int base);
 int		print_signed_nbr(va_list ap, int len, t_attribute *attr);

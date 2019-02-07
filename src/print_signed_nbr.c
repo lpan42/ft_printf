@@ -37,14 +37,20 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 	char *temp;
 
 	temp = str;
-	if (attr->width && attr->flag.min_0 != '-')
+	if (attr->width)
 	{
 		if(len < attr->width)
 		{
 			if(!(space = ft_strnew(attr->width - len + 1)))
 				return (0);
-			ft_memset(space, ' ', attr->width - len);
-			temp = ft_strjoin(space, str);
+			if(attr->flag.min_0 == '0')
+				ft_memset(space, '0', attr->width - len);
+			else
+				ft_memset(space, ' ', attr->width - len);
+			if(attr->flag.min_0 != '-')
+				temp = ft_strjoin(space, str);
+			else
+				temp = ft_strjoin(str, space);
 			str = temp;
 			ft_strdel(&space);
 		}
