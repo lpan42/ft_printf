@@ -31,20 +31,7 @@ int main()
 	double f = 3.19; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
-	ft_printf("ft_printf: %010x\n", 542);
-	printf("re_printf: %010x\n", 542);
-	ft_printf("ft_printf: %010d\n", 542);
-	printf("re_printf: %010d\n", 542);
-	ft_printf("%#x\n", 0);
-	printf("%#x\n", 0);
-	ft_printf("%#o\n", 0);
-	printf("%#o\n", 0);
-	ft_printf("%#08x\n", 42);
-	printf("%#08x\n", 42);
-	printf("re_printf:#015x: %#015x\n", i);
-	ft_printf("ft_printf:#015x: %#015x\n", i);
 
-/*
 	printf("re_printf: %5%\n");
 	ft_printf("ft_printf: %5%\n");
 	ft_printf("\n");
@@ -73,6 +60,8 @@ int main()
 	ft_printf("\n");
 
 	ft_printf("d&i: \n");
+	printf("re_printf:010d: %010d\n",i);
+	ft_printf("ft_printf:010d: %010d\n", i);
 	printf("re_printf:+ 6.6d: %+ 6.6d\n", i);
 	ft_printf("ft_printf:+ 6.6d: %+ 6.6d\n", i);
 	printf("re_printf:+010.7d: %+010.7d\n", i);
@@ -160,6 +149,18 @@ int main()
 	ft_printf("ft_printf:8.7lx: %8.7lx\n", l);
 	printf("re_printf:+010.7llx: %+010.llx\n", ll);
 	ft_printf("ft_printf:+010.7llx: %+010.7llx\n", ll);
+	printf("re_printf: %010x\n", i);
+	ft_printf("ft_printf: %010x\n", i);
+	printf("re_printf:#08x: %#08x\n", i);
+	ft_printf("ft_printf:#08x: %#08x\n", i);
+	printf("re_printf:#015.12x: %#015.12x\n", i);
+	ft_printf("ft_printf:#015.12x: %#015.12x\n", i);
+	printf("re_printf:#15x: %#15x\n", i);
+	ft_printf("ft_printf:#15x: %#15x\n", i);
+	printf("re_printf:#015x: %#015x\n", i);
+	ft_printf("ft_printf:#015x: %#015x\n", i);
+	printf("re_printf:#015.3x: %#015.3x\n", i);
+	ft_printf("ft_printf:#015.3x: %#015.3x\n", i);
 	ft_printf("\n");
 
 	ft_printf("X: \n");

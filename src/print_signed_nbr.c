@@ -43,7 +43,7 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 		{
 			if(!(space = ft_strnew(attr->width - len + 1)))
 				return (0);
-			if(attr->flag.min_0 == '0')
+			if(attr->flag.min_0 == '0' && !(attr->precis))
 				ft_memset(space, '0', attr->width - len);
 			else
 				ft_memset(space, ' ', attr->width - len);

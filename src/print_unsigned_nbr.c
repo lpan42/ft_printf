@@ -45,7 +45,7 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 		{
 			if(!(space = ft_strnew(attr->width - len + 1)))
 				return (0);
-			if(attr->flag.min_0 == '0')
+			if(attr->flag.min_0 == '0'&& !(attr->precis))
 				ft_memset(space, '0', attr->width - len);
 			else
 				ft_memset(space, ' ', attr->width - len);
@@ -89,8 +89,13 @@ static char		*put_flag(unsigned long long nbr, t_attribute *attr, int base)
 {
 	char *str;
 	char *sharp;
+	int len;
 
 	sharp = NULL;
+	len = 0;
+	if (!(str = conver_unsigned_to_str(nbr, base, attr)))
+		return (NULL);
+	str = put_precision(str, attr);
 	if(attr->flag.sharp)
 	{
 		if(attr->conver == 'o' && nbr != 0)
@@ -110,15 +115,12 @@ static char		*put_flag(unsigned long long nbr, t_attribute *attr, int base)
 			else if(attr->conver == 'X')
 				sharp[1] = 'X';
 		}
-	}
-	if (!(str = conver_unsigned_to_str(nbr, base, attr)))
-		return (NULL);
-	str = put_precision(str, attr);
-	if(attr->flag.sharp)
-	{
-			if(!(str = ft_strjoin(sharp, str)))
-				return (0);
-			ft_strdel(&sharp);
+		len = ft_strlen(str) + ft_strlen(sharp);
+		if (!(attr->precis) && attr->width && attr->flag.min_0 == '0')
+			str = put_width(len, str, attr);
+		if(!(str = ft_strjoin(sharp, str)))
+			return (0);
+		ft_strdel(&sharp);
 	}
 	return(str);
 }
