@@ -60,8 +60,9 @@ static int		get_width(char *format, t_attribute *attr)
 	i = 0;
 	while (ft_isdigit(format[i]))
 		i++;
-	nbr = ft_strsub(format, 0, i);
 	if (!i)
+		return (0);
+	if(!(nbr = ft_strsub(format, 0, i)))
 		return (0);
 	else
 		attr->width = ft_atoi(nbr);
@@ -128,7 +129,5 @@ int		set_attributes(char *format, t_attribute *attr)
 		format += i;
 	while(get_conversion(*format, attr))
 		format++;
-	//if (format == ver)
-	//	return (0);
 	return (format - ver);
 }

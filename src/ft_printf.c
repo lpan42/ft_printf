@@ -13,25 +13,29 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-int		print_specifiers(t_attribute *attr, va_list ap)
+int		print_specifiers(char *format, t_attribute *attr, va_list ap)
 {
 	int len;
 
 	len = 0;
 	if (attr->conver == 'c')
 		len = print_character(ap, len, attr);
-	if (attr->conver == 's')
+	else if (attr->conver == 's')
 		len = print_string(ap, len, attr);
-	if (attr->conver == 'd' || attr->conver == 'i')
+	else if (attr->conver == 'd' || attr->conver == 'i')
 		len = print_signed_nbr(ap, len, attr);
-	if (attr->conver == 'u')
+	else if (attr->conver == 'u')
 		len = print_unsigned_nbr(ap, len, attr, 10);
-	if (attr->conver == 'o')
+	else if (attr->conver == 'o')
 		len = print_unsigned_nbr(ap, len, attr, 8);
-	if (attr->conver == 'x' || attr->conver == 'X' || attr->conver == 'p')
+	else if (attr->conver == 'x' || attr->conver == 'X' || attr->conver == 'p')
 		len = print_unsigned_nbr(ap, len, attr, 16);
-	if (attr->conver == 'f')
+	else if (attr->conver == 'f')
 		len = print_float(ap, len, attr);
+	else if(!attr->conver && attr->width)
+	{
+		len = print_no_specifier(*format, len, attr);
+	}
 	return(len);
 }
 
@@ -62,9 +66,13 @@ int		ft_printf(char *format, ...)
 			if(*format != '%')
 			{
 				count = set_attributes(format, &attr);
-				len = print_specifiers(&attr, ap);
-				ret += len;
 				format += count;
+				len = print_specifiers(format, &attr, ap);
+				if(!attr.conver)
+					format++;
+				ret += len;
+				//if(count == 0 && len == 0)
+				//	format++;
 			}
 			else
 			{

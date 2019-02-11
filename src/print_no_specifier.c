@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_text.c                                       :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpan <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/11 13:23:51 by lpan              #+#    #+#             */
-/*   Updated: 2019/01/11 13:23:53 by lpan             ###   ########.fr       */
+/*   Created: 2018/11/15 16:53:35 by lpan              #+#    #+#             */
+/*   Updated: 2018/11/15 16:53:36 by lpan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,13 @@ static int print_0_space(int len, t_attribute *attr)
 	return (len);
 }
 
-int print_character(va_list ap, int len, t_attribute *attr)
+int print_no_specifier(char c, int len, t_attribute *attr)
 {
-	char c;
-
-	c = va_arg(ap, int);
 	len = sizeof(char);
 	if (!(attr->flag.min_0 == '-'))
 		len = print_0_space(len, attr);
 	ft_putchar(c);
 	if (attr->flag.min_0 == '-')
 		len = print_0_space(len, attr);
-	return (len);
-}
-
-int print_string(va_list ap, int len, t_attribute *attr)
-{
-	char	*str;
-	char	*conv_prec;
-
-	len = 0;
-	str = va_arg(ap, char *);
-	conv_prec = NULL;
-	if ((!(attr->flag.min_0 == '-') && (attr->precis)))
-	{
-		if (!(conv_prec = ft_strndup(str, attr->precis)))
-			return (0);
-		str = conv_prec;
-	}
-	len = ft_strlen(str);
-	if ((!(attr->flag.min_0 == '-') && (attr->width)))
-	{
-		len = print_0_space(len, attr);
-	}
-	ft_putstr(str);
-	if(conv_prec)
-		ft_strdel(&conv_prec);
 	return (len);
 }

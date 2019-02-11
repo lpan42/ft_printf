@@ -31,11 +31,24 @@ int main()
 	double f = 3.19; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
-
+	printf("re_printf: %05bcd\n", "test");
+	ft_printf("ft_printf: %05bcd\n", "test");
+	ft_printf("\n");
 	printf("re_printf: %5%\n");
 	ft_printf("ft_printf: %5%\n");
 	ft_printf("\n");
+	printf("re_printf: %%\n");
+	ft_printf("ft_printf: %%\n");
+	ft_printf("\n");
+	printf("re_printf: %   %\n", "test");
+	ft_printf("ft_printf: %   %\n", "test");
+	ft_printf("\n");
+	printf("re_printf:%-5ct\n", c);
+	ft_printf("ft_printf:%-5ct\n", c);
+	printf("re_printf: %s %\n", "test");
+	ft_printf("ft_printf: %s %\n", "test");
 
+/*
 	ft_printf("f: \n");
 	printf("re_printf: 10.15f: %010.15f\n", f);
 	ft_printf("ft_printf: 10.15f: %010.15f\n", f);
