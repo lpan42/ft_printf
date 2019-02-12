@@ -31,19 +31,35 @@ int main()
 	double f = 3.19; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
+	printf("% 3d\n", -42);
+	ft_printf("% 3d\n", -42);
+	printf("% d\n", 42);
+	ft_printf("% d\n", 42);
+	printf("%3d\n", -42);
+	ft_printf("%3d\n", -42);
+	printf("re_printf: 0+5d: %0+5d\n", 42);
+	ft_printf("ft_printf: 0+5d: %0+5d\n", 42);
+	// printf("@moulitest: %s\n", NULL);
+	// ft_printf("@moulitest: %s\n", NULL);
+	// printf("%-.2s is a string\n", "this");
+	// ft_printf("%-.2s is a string\n", "this");
+	// printf("re_printf:% -.3s\n", str);
+	// ft_printf("ft_printf:% -.3s\n", str);
+	// printf("%-10s is a string\n", "this");
+	// ft_printf("%-10s is a string\n", "this");
 	// printf("re_printf: -42x: %x\n", -42);
 	// ft_printf("ft_printf: -42x: %x\n", -42);
 //
-	 printf("re_printf: %05x\n", 0);
-	 ft_printf("ft_printf: %05x\n", 0);
-	printf("re_printf: %05.x\n", 0);
-	ft_printf("ft_printf: %05.x\n", 0);
+	//  printf("re_printf: %05x\n", 0);
+	//  ft_printf("ft_printf: %05x\n", 0);
+	// printf("re_printf: %05.x\n", 0);
+	// ft_printf("ft_printf: %05.x\n", 0);
 	// printf("re_printf: %x\n", 0);
 	// ft_printf("ft_printf: %x\n", 0);
 	// printf("re_printf: %#.0x\n", 0);
 	// ft_printf("ft_printf: %#.0x\n", 0);
-	printf("re_printf: %.x\n", 0);
-	ft_printf("ft_printf: %.x\n", 0);
+	// printf("re_printf: %.x\n", 0);
+	// ft_printf("ft_printf: %.x\n", 0);
 	/*ft_printf("special test: \n");
 	printf("re_printf: % m\n");
 	ft_printf("ft_printf: % m\n");

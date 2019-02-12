@@ -47,8 +47,13 @@ int print_string(va_list ap, int len, t_attribute *attr)
 
 	len = 0;
 	str = va_arg(ap, char *);
+	if(!str)
+	{
+		ft_putstr("(null)");
+		return(6);
+	}
 	conv_prec = NULL;
-	if ((!(attr->flag.min_0 == '-') && (attr->precis)))
+	if(attr->precis)// ((!(attr->flag.min_0 == '-') && (attr->precis)))
 	{
 		if (!(conv_prec = ft_strndup(str, attr->precis)))
 			return (0);
@@ -60,6 +65,10 @@ int print_string(va_list ap, int len, t_attribute *attr)
 		len = print_0_space(len, attr);
 	}
 	ft_putstr(str);
+	if (attr->flag.min_0 == '-' && attr->width)
+	{
+		len = print_0_space(len, attr);
+	}
 	if(conv_prec)
 		ft_strdel(&conv_prec);
 	return (len);
