@@ -26,6 +26,8 @@ static signed long long conver_length(va_list ap, t_attribute *attr)
 		nbr = va_arg(ap, long);
 	else if (attr->length == 4)
 		nbr = va_arg(ap, long long);
+	else if (attr->length == 6)
+		nbr = va_arg(ap, intmax_t);
 	else
 		nbr = va_arg(ap, int);
 	return (nbr);
@@ -89,6 +91,8 @@ static char		*put_flag(signed long long nbr, t_attribute *attr)
 	int check_min;
 
 	check_min = 0;
+	if (attr->precis == -1 && nbr == 0)
+		return(NULL);
 	if(!(sign = ft_strnew(2)))
 		return (0);
 	if(!(space = ft_strnew(2)))
@@ -124,10 +128,14 @@ int		print_signed_nbr(va_list ap, int len, t_attribute *attr)
 	nbr = 0;
 	nbr = conver_length(ap, attr);
 	str = put_flag(nbr, attr);
-	len = ft_strlen(str);
+	if (str)
+		len = ft_strlen(str);
 	str = put_width(len, str, attr);
-	ft_putstr(str);
-	len = ft_strlen(str);
-	ft_strdel(&str);
+	if(str)
+	{
+		ft_putstr(str);
+		len = ft_strlen(str);
+		ft_strdel(&str);
+	}
 	return (len);
 }

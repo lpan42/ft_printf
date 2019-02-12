@@ -31,6 +31,30 @@ int main()
 	double f = 3.19; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
+	// printf("re_printf: -42x: %x\n", -42);
+	// ft_printf("ft_printf: -42x: %x\n", -42);
+//
+	 printf("re_printf: %05x\n", 0);
+	 ft_printf("ft_printf: %05x\n", 0);
+	printf("re_printf: %05.x\n", 0);
+	ft_printf("ft_printf: %05.x\n", 0);
+	// printf("re_printf: %x\n", 0);
+	// ft_printf("ft_printf: %x\n", 0);
+	// printf("re_printf: %#.0x\n", 0);
+	// ft_printf("ft_printf: %#.0x\n", 0);
+	printf("re_printf: %.x\n", 0);
+	ft_printf("ft_printf: %.x\n", 0);
+	/*ft_printf("special test: \n");
+	printf("re_printf: % m\n");
+	ft_printf("ft_printf: % m\n");
+	printf("re_printf: % .5m\n");
+	ft_printf("ft_printf: % .5m\n");
+	printf("%.0%\n");
+	ft_printf("%.0%\n");
+	printf("%%\n");
+	ft_printf("%%\n");
+	printf("%m is this work\n");
+	ft_printf("%m is this work\n");
 	printf("re_printf: %05bcd\n", "test");
 	ft_printf("ft_printf: %05bcd\n", "test");
 	ft_printf("\n");
@@ -47,7 +71,7 @@ int main()
 	ft_printf("ft_printf:%-5ct\n", c);
 	printf("re_printf: %s %\n", "test");
 	ft_printf("ft_printf: %s %\n", "test");
-
+	ft_printf("\n");
 /*
 	ft_printf("f: \n");
 	printf("re_printf: 10.15f: %010.15f\n", f);
@@ -60,7 +84,7 @@ int main()
 	ft_printf("ft_printf: +10.4f: %+10.4f\n", f);
 	printf("re_printf: +10.30Lf: %+10.30Lf\n", ld);
 	ft_printf("ft_printf: +10.30Lf: %+10.30Lf\n", ld);
-
+	ft_printf("\n");
 
 	ft_printf("c: \n");
 	printf("re_printf:%05c\n", c);
@@ -73,6 +97,10 @@ int main()
 	ft_printf("\n");
 
 	ft_printf("d&i: \n");
+	printf("re_printf: +d: % +d\n", 42);
+	ft_printf("ft_printf: +d: % +d\n", 42);
+	printf("re_printf:0-d: %0-d\n", 42);
+	ft_printf("ft_printf:0-d: %0-d\n", 42);
 	printf("re_printf:010d: %010d\n",i);
 	ft_printf("ft_printf:010d: %010d\n", i);
 	printf("re_printf:+ 6.6d: %+ 6.6d\n", i);
@@ -140,6 +168,8 @@ int main()
 	ft_printf("\n");
 
 	ft_printf("x: \n");
+	printf("re_printf: %#x\n", 0);
+	ft_printf("ft_printf: %#x\n", 0);
 	printf("re_printf:+ 6.6x: %+ 6.6x\n", i);
 	ft_printf("ft_printf:+ 6.6x: %+ 6.6x\n", i);
 	printf("re_printf:+#015.12x: %+#015.12x\n", i);
@@ -174,6 +204,8 @@ int main()
 	ft_printf("ft_printf:#015x: %#015x\n", i);
 	printf("re_printf:#015.3x: %#015.3x\n", i);
 	ft_printf("ft_printf:#015.3x: %#015.3x\n", i);
+	printf("re_printf: %#.x %#.0x\n", 0, 0);
+	ft_printf("ft_printf: %#.x %#.0x\n", 0, 0);
 	ft_printf("\n");
 
 	ft_printf("X: \n");

@@ -19,6 +19,8 @@ static int		get_flag(char f, t_attribute *attr)
 	{
 		if(!attr->flag.min_0)
 			attr->flag.min_0 = f;
+		if((attr->flag.plus_spce == '0') && (f == '-'))
+			attr->flag.plus_spce = '-';
 		if(attr->flag.min_0 == '-')
 			attr->flag.min_0 = '-';
 		return (1);
@@ -27,6 +29,8 @@ static int		get_flag(char f, t_attribute *attr)
 	{
 		if (!attr->flag.plus_spce)
 			attr->flag.plus_spce = f;
+		if((attr->flag.plus_spce == ' ') && (f == '+'))
+			attr->flag.plus_spce = '+';
 		if(attr->flag.plus_spce == '+')
 			attr->flag.plus_spce = '+';
 		return (1);
@@ -78,15 +82,28 @@ static int		get_precision(char *format, t_attribute *attr)
 	i = 0;
 	if (format[0] == '.')
 	{
-		i = 1;
-		while (ft_isdigit(format[i]))
-			i++;
-		nbr = ft_strsub(format, 1, i);
-		if (i == 1)
-			return (0);
-		else
-			attr->precis = ft_atoi(nbr);
-		ft_strdel(&nbr);
+		if (ft_isdigit(format[1]) && format[1] != '0')
+		{
+			i = 1;
+			while (ft_isdigit(format[i]))
+				i++;
+			nbr = ft_strsub(format, 1, i);
+			if (i == 1)
+				return (0);
+			else
+				attr->precis = ft_atoi(nbr);
+			ft_strdel(&nbr);
+		}
+		else if(!ft_isdigit(format[1]))
+		{
+			i = 1;
+			attr->precis = -1;
+		}
+		else if( format[1] == '0')
+		{
+			i = 2;
+			attr->precis = -1;
+		}
 	}
 	return (i);
 }
@@ -96,7 +113,7 @@ static int		get_length(char *format, t_attribute *attr)
 	int		i;
 
 	i = 0;
-	if (format[i] == 'h' || format[i] == 'l' || format[i] == 'L')
+	if (format[i] == 'h' || format[i] == 'l' || format[i] == 'L' || format[i] == 'j')
 	{
 		i = 1;
 		if (format[0] == 'h')
@@ -105,6 +122,8 @@ static int		get_length(char *format, t_attribute *attr)
 			format[1] == 'l' ? (attr->length = ll) : (attr->length = l);
 		if (format[0] == 'L')
 			attr->length = L;
+		if (format[0] == 'j')
+			attr->length = j;
 		if (attr->length == hh || attr->length == ll)
 			i = 2;
 	}

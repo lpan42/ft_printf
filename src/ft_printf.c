@@ -32,7 +32,7 @@ int		print_specifiers(char *format, t_attribute *attr, va_list ap)
 		len = print_unsigned_nbr(ap, len, attr, 16);
 	else if (attr->conver == 'f')
 		len = print_float(ap, len, attr);
-	else if(!attr->conver && attr->width)
+	else if(!attr->conver)// && attr->width)
 	{
 		len = print_no_specifier(*format, len, attr);
 	}
@@ -47,6 +47,8 @@ int		ft_printf(char *format, ...)
 	int	len; //print len
 	int count; //input count
 
+//BONUS:
+//-lengh modifier: j
 	ret = 0;
 	len = 0;
 	count = 0;
@@ -63,9 +65,11 @@ int		ft_printf(char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			if(*format != '%')
+			//if(*format != '%')
 			{
 				count = set_attributes(format, &attr);
+				//printf("precis: %d\n", attr.precis);
+				//printf("conver: %c\n", attr.conver);
 				format += count;
 				len = print_specifiers(format, &attr, ap);
 				if(!attr.conver)
@@ -74,12 +78,12 @@ int		ft_printf(char *format, ...)
 				//if(count == 0 && len == 0)
 				//	format++;
 			}
-			else
-			{
-				ft_putchar('%');
-				ret++;
-				format++;
-			}
+			// else
+			// {
+			// 	ft_putchar('%');
+			// 	ret++;
+			// 	format++;
+			// }
 		}
 		else
 		{

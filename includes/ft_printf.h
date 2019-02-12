@@ -24,7 +24,8 @@ typedef enum	e_length
 	hh,
 	l,
 	ll,
-	L
+	L,
+	j
 }				t_length;
 
 typedef struct s_flags
