@@ -31,8 +31,13 @@ int main()
 	double f = 3.19; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
-	printf("re_printf: %.4O\n", 42);
-	ft_printf("ft_printf: %.4O\n", 42);
+	//printf("re_printf: %.4O\n", 42);
+	//ft_printf("ft_printf: %.4O\n", 42);
+
+	printf("%");
+	printf("\n");
+	ft_printf("%");
+	printf("\n");
 	// printf("@re_printf: %s\n", NULL);
 	// ft_printf("ft_printf: %s\n", NULL);
 	// printf("%-.2s is a string\n", "this");
@@ -282,6 +287,8 @@ int main()
 	ft_printf("\n");
 
 	ft_printf("p: \n");
+	printf("%p\n", 0);
+	ft_printf("%p\n", 0);
 	printf ("p: pointer address: %p \n", str);
 	ft_printf ("p: pointer address: %p \n", str);
 	printf("re_printf:+ 6.6p: %+ 6.6p\n", str);

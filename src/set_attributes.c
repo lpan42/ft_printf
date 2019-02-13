@@ -45,8 +45,8 @@ static int		get_flag(char f, t_attribute *attr)
 
 static int		get_conversion(char f, t_attribute *attr)
 {
-	if (f == 'd' || f == 'i' || f == 'o' || f == 'u' || f == 'x' ||
-		f == 'X' || f == 'c' || f == 's' || f == 'p' || f == 'f')
+	if (f == 'd' || f == 'i' || f == 'o' || f == 'u' || f == 'x' || f == 'X' ||
+		f == 'c' || f == 's' || f == 'p' || f == 'f')
 	{
 		attr->conver = f;
 		if(attr->conver == 'p')

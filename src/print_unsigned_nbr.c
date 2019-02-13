@@ -120,7 +120,7 @@ static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 	//printf("str_pre: %s\n", str);
 	str = put_precision(str, attr);
 	//printf("str_pre: %s\n", str);
-	if(attr->flag.sharp && nbr != 0)
+	if((attr->flag.sharp && nbr != 0) || (attr->flag.sharp && attr->conver == 'p'))
 	{
 		if(attr->conver == 'o')
 		{

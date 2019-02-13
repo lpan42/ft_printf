@@ -28,11 +28,14 @@ static int print_0_space(int len, t_attribute *attr)
 
 int print_no_specifier(char c, int len, t_attribute *attr)
 {
-	len = sizeof(char);
+	if(c)
+		len = sizeof(char);
 	if (!(attr->flag.min_0 == '-'))
 		len = print_0_space(len, attr);
-	ft_putchar(c);
+	if(c)
+		ft_putchar(c);
 	if (attr->flag.min_0 == '-')
 		len = print_0_space(len, attr);
+	//printf("len : %d\n", len);
 	return (len);
 }
