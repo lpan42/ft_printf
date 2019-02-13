@@ -45,8 +45,8 @@ static int		get_flag(char f, t_attribute *attr)
 
 static int		get_conversion(char f, t_attribute *attr)
 {
-	if (f == 'd' || f == 'i' || f == 'o' || f == 'u' || f == 'x' || f == 'X'
-		|| f == 'c' || f == 's' || f == 'p' || f == 'f')
+	if (f == 'd' || f == 'i' || f == 'o' || f == 'u' || f == 'x' ||
+		f == 'X' || f == 'c' || f == 's' || f == 'p' || f == 'f')
 	{
 		attr->conver = f;
 		if(attr->conver == 'p')
@@ -87,7 +87,8 @@ static int		get_precision(char *format, t_attribute *attr)
 			i = 1;
 			while (ft_isdigit(format[i]))
 				i++;
-			nbr = ft_strsub(format, 1, i);
+			if(!(nbr = ft_strsub(format, 1, i)))
+				return (0);
 			if (i == 1)
 				return (0);
 			else
@@ -113,7 +114,8 @@ static int		get_length(char *format, t_attribute *attr)
 	int		i;
 
 	i = 0;
-	if (format[i] == 'h' || format[i] == 'l' || format[i] == 'L' || format[i] == 'j')
+	if (format[i] == 'h' || format[i] == 'l' || format[i] == 'L' ||
+		format[i] == 'j' || format[i] == 'z')
 	{
 		i = 1;
 		if (format[0] == 'h')
@@ -124,6 +126,8 @@ static int		get_length(char *format, t_attribute *attr)
 			attr->length = L;
 		if (format[0] == 'j')
 			attr->length = j;
+		if (format[0] == 'z')
+			attr->length = z;
 		if (attr->length == hh || attr->length == ll)
 			i = 2;
 	}
@@ -138,15 +142,23 @@ int		set_attributes(char *format, t_attribute *attr)
 	i = 0;
 	ver = format;
 
+	//printf("ver: %c\n", *ver);
+	//printf("format: %c\n", *format);
 	while(get_flag(*format, attr))
 		format++;
+	//printf("format: %c\n", *format);
 	while((i = get_width(format, attr)))
 		format += i;
+	//printf("format: %c\n", *format);
 	while((i = get_precision(format, attr)))
 		format += i;
+	//printf("format: %c\n", *format);
 	while((i = get_length(format, attr)))
 		format += i;
-	while(get_conversion(*format, attr))
+	//printf("format: %c\n", *format);
+	if(get_conversion(*format, attr))
 		format++;
+	//printf("ver: %c\n", *ver);
+	//printf("format: %c\n", *format);
 	return (format - ver);
 }

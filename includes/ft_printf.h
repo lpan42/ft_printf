@@ -20,12 +20,13 @@
 typedef enum	e_length
 {
 	none = 0,
-	h,
-	hh,
-	l,
-	ll,
-	L,
-	j
+	h,//1
+	hh,//2
+	l,//3
+	ll,//4
+	L,//5
+	j,//6
+	z//7
 }				t_length;
 
 typedef struct s_flags
@@ -45,8 +46,8 @@ typedef struct	s_attribute
 }				t_attribute;
 
 int		set_attributes(char *format, t_attribute *attr);
-char	*conver_signed_to_str(signed long long n);
-char	*conver_unsigned_to_str(unsigned long long n, int base, t_attribute *attr);
+char	*conver_signed_to_str(intmax_t n);
+char	*conver_unsigned_to_str(uintmax_t n, int base, t_attribute *attr);
 int		print_specifiers(char *format, t_attribute *attr, va_list ap);
 int		print_unsigned_nbr(va_list ap, int len, t_attribute *attr, int base);
 int		print_signed_nbr(va_list ap, int len, t_attribute *attr);

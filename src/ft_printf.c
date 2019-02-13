@@ -38,6 +38,16 @@ int		print_specifiers(char *format, t_attribute *attr, va_list ap)
 	}
 	return(len);
 }
+void init_attr(t_attribute *attr)
+{
+	attr->conver = '\0';
+	attr->flag.sharp = '\0';
+	attr->flag.min_0 = '\0';
+	attr->flag.plus_spce = '\0';
+	attr->width = 0;
+	attr->precis = 0;
+	attr->length = none;
+}
 
 int		ft_printf(char *format, ...)
 {
@@ -48,42 +58,35 @@ int		ft_printf(char *format, ...)
 	int count; //input count
 
 //BONUS:
-//-lengh modifier: j
+//-lengh modifier: j && z
 	ret = 0;
 	len = 0;
 	count = 0;
-	attr.conver = '\0';
-	attr.flag.sharp = '\0';
-	attr.flag.min_0 = '\0';
-	attr.flag.plus_spce = '\0';
-	attr.width = 0;
-	attr.precis = 0;
-	attr.length = none;
+	init_attr(&attr);
 	va_start(ap, format);
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
+			//printf("format: %c\n", *format);
 			//if(*format != '%')
 			{
 				count = set_attributes(format, &attr);
+				//printf("\ncount: %d\n", count);
 				//printf("precis: %d\n", attr.precis);
 				//printf("conver: %c\n", attr.conver);
 				format += count;
 				len = print_specifiers(format, &attr, ap);
+
+				//printf("len: %d\n", len);
 				if(!attr.conver)
 					format++;
 				ret += len;
+				init_attr(&attr);
 				//if(count == 0 && len == 0)
 				//	format++;
 			}
-			// else
-			// {
-			// 	ft_putchar('%');
-			// 	ret++;
-			// 	format++;
-			// }
 		}
 		else
 		{

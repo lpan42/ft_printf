@@ -32,7 +32,7 @@ OBJECTS = $(SRC_FILES:.c=.o) $(LIBFT_FILES:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	$(CC) -c $(SRC) $(LIBFT) $(INC)
+	$(CC) $(FLAGS) -c $(SRC) $(LIBFT) $(INC)
 	ar rc $(NAME) $(OBJECTS)
 	@ranlib $(NAME)
 

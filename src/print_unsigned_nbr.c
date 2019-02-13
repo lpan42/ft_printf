@@ -13,25 +13,28 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static size_t conver_length(va_list ap, t_attribute *attr)
+static uintmax_t conver_length(va_list ap, t_attribute *attr)
 {
-	unsigned long long nbr;
-
+	uintmax_t nbr;
 	nbr = 0;
 	if (attr->length == 1)
-		nbr = (unsigned short)va_arg(ap, int);
+		nbr = (unsigned short)va_arg(ap, unsigned int);
 	else if (attr->length == 2)
-		nbr = (unsigned char)va_arg(ap, int);
+		nbr = (unsigned char)va_arg(ap, unsigned int);
 	else if (attr->length == 3)
 		nbr = va_arg(ap, unsigned long);
 	else if (attr->length == 4)
 		nbr = va_arg(ap, unsigned long long);
 	else if (attr->length == 6)
 		nbr = va_arg(ap, uintmax_t);
+	else if (attr->length == 7)
+		nbr = va_arg(ap, size_t);
 	else if (attr->conver == 'p')
 		nbr = (size_t)va_arg(ap, void *);
 	else
-		nbr = va_arg(ap, int);
+		nbr = va_arg(ap, unsigned int);
+	//printf("nbr: %ju\n", nbr);
+	//printf("nbr: ju\n");
 	return (nbr);
 }
 
@@ -100,7 +103,7 @@ static char		*put_precision(char *str, t_attribute *attr)
 	return (str);
 }
 
-static char		*put_flag(unsigned long long nbr, t_attribute *attr, int base)
+static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 {
 	char *str;
 	char *sharp;
@@ -109,7 +112,8 @@ static char		*put_flag(unsigned long long nbr, t_attribute *attr, int base)
 	sharp = NULL;
 	len = 0;
 	//printf("precis: %d\n", attr->precis);
-	if (attr->precis == -1 && nbr == 0)
+	if (attr->precis == -1 && nbr == 0 && !(attr->conver == 'o' &&
+		attr->flag.sharp))
 		return(NULL);
 	if (!(str = conver_unsigned_to_str(nbr, base, attr)))
 		return (NULL);
@@ -146,7 +150,7 @@ static char		*put_flag(unsigned long long nbr, t_attribute *attr, int base)
 
 int		print_unsigned_nbr(va_list ap, int len, t_attribute *attr, int base)
 {
-	unsigned long long		nbr;
+	uintmax_t		nbr;
 	char	*str;
 
 	nbr = 0;

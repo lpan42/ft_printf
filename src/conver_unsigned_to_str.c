@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static int	count_unsigned_digit(unsigned long long n, int base)
+static int	count_unsigned_digit(uintmax_t n, int base)
 {
 	int	count;
 
@@ -28,7 +28,7 @@ static int	count_unsigned_digit(unsigned long long n, int base)
 	return (count);
 }
 
-char	*conver_unsigned_to_str(unsigned long long n, int base, t_attribute *attr)
+char	*conver_unsigned_to_str(uintmax_t n, int base, t_attribute *attr)
 {
 	char	*str;
 	int		i;

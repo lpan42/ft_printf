@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static int		count_signed_digit(signed long long n)
+static int		count_signed_digit(intmax_t n)
 {
 	int	count;
 
@@ -30,7 +30,7 @@ static int		count_signed_digit(signed long long n)
 	return (count);
 }
 
-static void		positive_nbr(int len, signed long long n, char *str)
+static void		positive_nbr(int len, intmax_t n, char *str)
 {
 	while (n != 0)
 	{
@@ -39,7 +39,7 @@ static void		positive_nbr(int len, signed long long n, char *str)
 	}
 }
 
-char			*conver_signed_to_str(signed long long n)
+char			*conver_signed_to_str(intmax_t n)
 {
 	char	*str;
 	int		i;
@@ -54,6 +54,9 @@ char			*conver_signed_to_str(signed long long n)
 		return (NULL);
 	if (n == 0)
 		str[0] = '0';
+	if (n == -9223372036854775807LL - 1LL)
+		return (ft_strdup("9223372036854775808"));
+	//printf("nbr: %jd\n", n);
 	if (n < 0)
 	{
 		str[0] = '-';
