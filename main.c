@@ -28,38 +28,45 @@ int main()
 	unsigned char z = 'z';
 	unsigned long ul = 4294967295;
 	unsigned long long ull = 18446744073709551615;
-	double f = 3.19; //double has 15 decimal digits of precision.
+	double f = 199.99; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
-	//printf("re_printf: %.4O\n", 42);
-	//ft_printf("ft_printf: %.4O\n", 42);
+		printf("re_printf:010.1f: %010.1f\n",f);//
+		ft_printf("ft_printf:010.1f: %010.1f\n", f);//
+		printf("re_printf: +.f: % +.f\n", f);//
+		ft_printf("ft_printf: +.f: % +.f\n", f);//
+		printf("re_printf: 10.15f: %010.15f\n", 0);//
+		ft_printf("ft_printf: 10.15f: %010.15f\n", 0);//
+		ft_printf("\n");
+/*
+	printf("re_printf: %.4O\n", 42);
+	ft_printf("ft_printf: %.4O\n", 42);
+	printf("@re_printf: %s\n", NULL);
+	ft_printf("ft_printf: %s\n", NULL);
+	printf("%-.2s is a string\n", "this");
+	ft_printf("%-.2s is a string\n", "this");
+	printf("re_printf:% -.3s\n", str);
+	ft_printf("ft_printf:% -.3s\n", str);
+	printf("%-10s is a string\n", "this");
+	ft_printf("%-10s is a string\n", "this");
+	printf("re_printf: -42x: %x\n", -42);
+	ft_printf("ft_printf: -42x: %x\n", -42);
 
-	printf("%");
+	 printf("re_printf: %05x\n", 0);
+	 ft_printf("ft_printf: %05x\n", 0);
+	printf("re_printf: %05.x\n", 0);
+	ft_printf("ft_printf: %05.x\n", 0);
+	printf("re_printf: %x\n", 0);
+	ft_printf("ft_printf: %x\n", 0);
+	printf("re_printf: %#.0x\n", 0);
+	ft_printf("ft_printf: %#.0x\n", 0);
+	printf("re_printf: %.x\n", 0);
+	ft_printf("ft_printf: %.x\n", 0);
 	printf("\n");
-	ft_printf("%");
+	ft_printf("special test: \n");
+	printf("re_printf: %");
+	ft_printf("ft_printf: %");
 	printf("\n");
-	// printf("@re_printf: %s\n", NULL);
-	// ft_printf("ft_printf: %s\n", NULL);
-	// printf("%-.2s is a string\n", "this");
-	// ft_printf("%-.2s is a string\n", "this");
-	// printf("re_printf:% -.3s\n", str);
-	// ft_printf("ft_printf:% -.3s\n", str);
-	// printf("%-10s is a string\n", "this");
-	// ft_printf("%-10s is a string\n", "this");
-	// printf("re_printf: -42x: %x\n", -42);
-	// ft_printf("ft_printf: -42x: %x\n", -42);
-//
-	//  printf("re_printf: %05x\n", 0);
-	//  ft_printf("ft_printf: %05x\n", 0);
-	// printf("re_printf: %05.x\n", 0);
-	// ft_printf("ft_printf: %05.x\n", 0);
-	// printf("re_printf: %x\n", 0);
-	// ft_printf("ft_printf: %x\n", 0);
-	// printf("re_printf: %#.0x\n", 0);
-	// ft_printf("ft_printf: %#.0x\n", 0);
-	// printf("re_printf: %.x\n", 0);
-	// ft_printf("ft_printf: %.x\n", 0);
-	/*ft_printf("special test: \n");
 	printf("re_printf: % m\n");
 	ft_printf("ft_printf: % m\n");
 	printf("re_printf: % .5m\n");
@@ -99,6 +106,65 @@ int main()
 	ft_printf("ft_printf: +10.4f: %+10.4f\n", f);
 	printf("re_printf: +10.30Lf: %+10.30Lf\n", ld);
 	ft_printf("ft_printf: +10.30Lf: %+10.30Lf\n", ld);
+	printf("re_printf: +10.300Lf: %+10.300Lf\n", ld);
+	ft_printf("ft_printf: +10.300Lf: %+10.300Lf\n", ld);
+	printf("re_printf: +10.300f: %+10.300f\n", 0.1999);
+	ft_printf("ft_printf: +10.300f: %+10.300f\n", 0.1999);
+	printf("re_printf: +10.300f: %+10.300f\n", 0.0009);
+	ft_printf("ft_printf: +10.300f: %+10.300f\n", 0.0009);
+	printf("re_printf: %5.0f\n", 0);
+	ft_printf("ft_printf: %5.0f\n", 0);
+	printf("re_printf: %5.f %5.0f\n", 0, 0);
+	ft_printf("ft_printf: %5.f %5.0f\n", 0, 0);
+	printf("%05f\n", f);
+	ft_printf("%05f\n", f);
+	printf("re_printf: % f\n", f);
+	ft_printf("ft_printf: % f\n", f);
+	printf("re_printf: % .2f\n", f);
+	ft_printf("ft_printf: % .2f\n", f);
+	printf("%3f\n", f);
+	ft_printf("%3f\n", f);
+	printf("re_printf: 0+5f: %0+5f\n", f);
+	ft_printf("ft_printf: 0+5f: %0+5f\n", f);
+	printf("re_printf:010.1f: %010.1f\n",f);//
+	ft_printf("ft_printf:010.1f: %010.1f\n", f);//
+	printf("re_printf: +.f: % +.f\n", f);//
+	ft_printf("ft_printf: +.f: % +.f\n", f);//
+	printf("re_printf:0-f: %0-f\n", f);
+	ft_printf("ft_printf:0-f: %0-f\n", f);
+	printf("re_printf:+ 6.6f: %+ 6.6f\n", f);
+	ft_printf("ft_printf:+ 6.6f: %+ 6.6f\n", f);
+	printf("re_printf:+010.7f: %+010.7f\n", f);
+	ft_printf("ft_printf:+010.7f: %+010.7f\n", f);
+	printf("re_printf:+ 10.7f: %+ 10.7f\n", f);
+	ft_printf("ft_printf:+ 10.7f: %+ 10.7f\n", f);
+	printf("re_printf:-010.7f: %-010.7f\n", f);
+	ft_printf("ft_printf:-010.7f: %-010.7f\n", f);
+	printf("re_printf:- 10.7f: %- 10.7f\n", f);
+	ft_printf("ft_printf:- 10.7f: %- 10.7f\n", f);
+	printf("re_printf:-010.7f: %-010.7f\n", -f);
+	ft_printf("ft_printf:-010.7f: %-010.7f\n", -f);
+	printf("re_printf: +10.30Lf: %+10.30Lf\n", ld);
+	ft_printf("ft_printf: +10.30Lf: %+10.30Lf\n", ld);
+	printf("re_printf: +10.300Lf: %+10.300Lf\n", ld);
+	ft_printf("ft_printf: +10.300Lf: %+10.300Lf\n", ld);
+printf("re_printf: 10.15f: %010.15f\n", 0);//
+ft_printf("ft_printf: 10.15f: %010.15f\n", 0);//
+printf("re_printf: 10.3f: %010.3f\n", -4.99);
+ft_printf("ft_printf: 10.3f: %010.3f\n", -4.99);
+printf("re_printf: 10.f: %0+10.f\n", -4.55);
+ft_printf("ft_printf: 10.f: %0+10.f\n", -4.55);
+printf("re_printf: 10f: %0+10f\n", -4.55);
+ft_printf("ft_printf: 10f: %0+10f\n", -4.55);
+printf("re_printf: 10.0f: %0+10.0f\n", -4.99);
+ft_printf("ft_printf: 10.0f: %0+10.0f\n", -4.99);
+printf("re_printf: 10.15f: %010.2f\n", 1.453443);
+ft_printf("ft_printf: 10.15f: %010.2f\n", 1.453443);
+printf("re_printf: 10.15f: %010.15f\n", f);
+ft_printf("ft_printf: 10.15f: %010.15f\n", f);
+printf("re_printf: 10.15f: %010.15f\n", f);
+ft_printf("ft_printf: 10.15f: %010.15f\n", f);
+ft_printf("\n");
 	ft_printf("\n");
 
 	ft_printf("c: \n");

@@ -69,23 +69,24 @@ int		ft_printf(char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			//printf("format: %c\n", *format);
-			//if(*format != '%')
-			//printf("conver: %c\n", attr.conver);
-			count = set_attributes(format, &attr);
-			//printf("\ncount: %d\n", count);
-			//printf("precis: %d\n", attr.precis);
-			//printf("conver: %c\n", attr.conver);
-			//printf("sharp: %c\n", attr.flag.sharp);
-			format += count;
-			len = print_specifiers(format, &attr, ap);
-			//printf("len: %d\n", len);
-			if(!attr.conver)
-				format++;
-			ret += len;
-			init_attr(&attr);
-			//if(count == 0 && len == 0)
-			//	format++;
+			if(*format != '\0')
+			{
+					//printf("conver: %c\n", attr.conver);
+					count = set_attributes(format, &attr);
+					//printf("\ncount: %d\n", count);
+					//printf("precis: %d\n", attr.precis);
+					//printf("conver: %c\n", attr.conver);
+					//printf("sharp: %c\n", attr.flag.sharp);
+					format += count;
+					len = print_specifiers(format, &attr, ap);
+					//printf("len: %d\n", len);
+					if(!attr.conver)
+						format++;
+					ret += len;
+					init_attr(&attr);
+			}
+			else
+				return (0);
 		}
 		else
 		{
