@@ -19,7 +19,7 @@ INC = -Iincludes/
 
 SRC_FILES = set_attributes.c	print_text.c	print_signed_nbr.c\
 print_unsigned_nbr.c	conver_signed_to_str.c	conver_unsigned_to_str.c\
-print_float.c	print_no_specifier.c	ft_printf.c
+rounding_float.c print_float.c	print_no_specifier.c	ft_printf.c
 LIBFT_FILES = ft_atoi.c	ft_memset.c	ft_putchar.c	ft_putstr.c	ft_strdel.c\
 ft_strlen.c	ft_strcat.c	ft_strcpy.c	ft_strjoin.c	ft_strsub.c	ft_isdigit.c\
 ft_strndup.c	ft_memcpy.c	ft_strnew.c	ft_itoa.c ft_digit_count.c	ft_strdup.c
