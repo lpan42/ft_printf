@@ -31,20 +31,8 @@ int main()
 	double f = 999.999876; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
-printf ("Width trick: %0*.*f \n", 20, 2, f);
 
-// printf("%0-3d\n", 0);
-// ft_printf("%0-3d\n", 0);
-// printf("%+03d\n", 0);
-// ft_printf("%+03d\n", 0);
-// printf("%+03d\n", 0);
-// ft_printf("%+03d\n", 0);
-// printf("% 04d\n", 0);
-// ft_printf("% 04d\n", 0);
-/*
 	ft_printf("special test: \n");
-	printf("re_printf: %.4O\n", 42);
-	ft_printf("ft_printf: %.4O\n", 42);
 	printf("re_printf: %\n");
 	ft_printf("ft_printf: %\n");
 	printf("re_printf: % m\n");
@@ -59,20 +47,20 @@ printf ("Width trick: %0*.*f \n", 20, 2, f);
 	ft_printf("%m is this work\n");
 	printf("re_printf: %05bcd\n", "test");
 	ft_printf("ft_printf: %05bcd\n", "test");
-	ft_printf("\n");
 	printf("re_printf: %5%\n");
 	ft_printf("ft_printf: %5%\n");
-	ft_printf("\n");
 	printf("re_printf: %%\n");
 	ft_printf("ft_printf: %%\n");
-	ft_printf("\n");
 	printf("re_printf: %   %\n", "test");
 	ft_printf("ft_printf: %   %\n", "test");
-	ft_printf("\n");
 	printf("re_printf:%-5ct\n", c);
 	ft_printf("ft_printf:%-5ct\n", c);
 	printf("re_printf: %s %\n", "test");
 	ft_printf("ft_printf: %s %\n", "test");
+	printf("%.*d\n", -15, 0);
+	ft_printf("%.*d\n", -15, 0);
+	printf("%*d\n", 5, 42);
+	ft_printf("%*d\n", 5, 42);
 	ft_printf("\n");
 
 	ft_printf("f: \n");
@@ -177,6 +165,14 @@ ft_printf("\n");
 	ft_printf("\n");
 
 	ft_printf("d&i: \n");
+	printf("%0-3d\n", 0);
+	ft_printf("%0-3d\n", 0);
+	printf("%+03d\n", 0);
+	ft_printf("%+03d\n", 0);
+	printf("%+03d\n", 0);
+	ft_printf("%+03d\n", 0);
+	printf("% 04d\n", 0);
+	ft_printf("% 04d\n", 0);
 	printf("re_printf: %5.0d\n", 0);
 	ft_printf("ft_printf: %5.0d\n", 0);
 	printf("re_printf: %5.d %5.0d\n", 0, 0);

@@ -87,9 +87,9 @@ static char		*put_precision(char *str, t_attribute *attr)
 			if(!(zero = ft_strnew(attr->precis - len + 1)))
 				return (0);
 			ft_memset(zero, '0', attr->precis - len);
-			temp = ft_strjoin(zero, str);
-			str = temp;
+			str = ft_strjoin(zero, temp);
 			ft_strdel(&zero);
+			ft_strdel(&temp);
 		}
 	}
 	return (str);

@@ -56,7 +56,7 @@ static int		get_conversion(char f, t_attribute *attr)
 	return (0);
 }
 
-static int		get_width(char *format, t_attribute *attr)
+static int		get_width(char *format, t_attribute *attr, va_list ap)
 {
 	int	i;
 	char *nbr;
@@ -64,6 +64,14 @@ static int		get_width(char *format, t_attribute *attr)
 	i = 0;
 	while (ft_isdigit(format[i]))
 		i++;
+	if(format[i] == '*')
+	{
+		attr->width = va_arg(ap, int);
+		i++;
+		if(attr->width < 0)
+			attr->width = 0;
+		return(i);
+	}
 	if (!i)
 		return (0);
 	if(!(nbr = ft_strsub(format, 0, i)))
@@ -74,7 +82,7 @@ static int		get_width(char *format, t_attribute *attr)
 	return (i);
 }
 
-static int		get_precision(char *format, t_attribute *attr)
+static int		get_precision(char *format, t_attribute *attr, va_list ap)
 {
 	int		i;
 	char	*nbr;
@@ -97,10 +105,18 @@ static int		get_precision(char *format, t_attribute *attr)
 		}
 		else if(!ft_isdigit(format[1]))
 		{
+			if(format[1] == '*')
+			{
+				i = 2;
+				attr->precis = va_arg(ap, int);
+				if(attr->precis < 0)
+					attr->precis = 0;
+				return(i);
+			}
 			i = 1;
 			attr->precis = -1;
 		}
-		else if( format[1] == '0')
+		else if(format[1] == '0')
 		{
 			i = 2;
 			attr->precis = -1;
@@ -134,7 +150,7 @@ static int		get_length(char *format, t_attribute *attr)
 	return (i);
 }
 
-int		set_attributes(char *format, t_attribute *attr)
+int		set_attributes(char *format, t_attribute *attr, va_list ap)
 {
 	int i;
 	char *ver;
@@ -147,10 +163,10 @@ int		set_attributes(char *format, t_attribute *attr)
 	while(get_flag(*format, attr))
 		format++;
 	//printf("format: %c\n", *format);
-	while((i = get_width(format, attr)))
+	while((i = get_width(format, attr, ap)))
 		format += i;
 	//printf("format: %c\n", *format);
-	while((i = get_precision(format, attr)))
+	while((i = get_precision(format, attr, ap)))
 		format += i;
 	//printf("format: %c\n", *format);
 	while((i = get_length(format, attr)))

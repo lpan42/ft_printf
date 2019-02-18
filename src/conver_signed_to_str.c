@@ -49,7 +49,8 @@ char			*conver_signed_to_str(intmax_t n)
 	len = count_signed_digit(n);
 	if (n < 0)
 		len++;
-	str = malloc(sizeof(char) * (len + 1));
+	if(!(str = malloc(sizeof(char) * (len + 1))))
+		return (0);
 	if (str == NULL)
 		return (NULL);
 	if (n == 0)

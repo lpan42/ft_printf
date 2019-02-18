@@ -62,11 +62,11 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 			if(str)
 			{
 				if(attr->flag.min_0 != '-')
-					temp = ft_strjoin(space, str);
+					str = ft_strjoin(space, temp);
 				else
-					temp = ft_strjoin(str, space);
-				str = temp;
+					str = ft_strjoin(temp, space);
 				ft_strdel(&space);
+				ft_strdel(&temp);
 			}
 			else
 				str = space;
@@ -74,6 +74,7 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 			//printf("temp:%s\n", temp);
 			//printf("str_width:%s\n", str);
 		}
+	//ft_strdel(&temp);
 	}
 	return (str);
 }
@@ -95,9 +96,9 @@ static char		*put_precision(char *str, t_attribute *attr)
 			if(!(zero = ft_strnew(attr->precis - len + 1)))
 				return (0);
 			ft_memset(zero, '0', attr->precis - len);
-			temp = ft_strjoin(zero, str);
-			str = temp;
+			str = ft_strjoin(zero, temp);
 			ft_strdel(&zero);
+			ft_strdel(&temp);
 		}
 	}
 	return (str);
@@ -147,7 +148,7 @@ static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 		{
 				if(!(str = ft_strjoin(sharp, str)))
 					return (0);
-					ft_strdel(&sharp);
+				ft_strdel(&sharp);
 		}
 	}
 	return(str);

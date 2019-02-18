@@ -45,7 +45,7 @@ typedef struct	s_attribute
 	t_length	length;
 }				t_attribute;
 
-int		set_attributes(char *format, t_attribute *attr);
+int		set_attributes(char *format, t_attribute *attr, va_list ap);
 char	*conver_signed_to_str(intmax_t n);
 char	*conver_unsigned_to_str(uintmax_t n, int base, t_attribute *attr);
 int		print_specifiers(char *format, t_attribute *attr, va_list ap);

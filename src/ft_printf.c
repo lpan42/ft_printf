@@ -59,6 +59,7 @@ int		ft_printf(char *format, ...)
 
 //BONUS:
 //-lengh modifier: j && z
+//-wildcard: *
 	ret = 0;
 	len = 0;
 	count = 0;
@@ -72,7 +73,7 @@ int		ft_printf(char *format, ...)
 			if(*format != '\0')
 			{
 					//printf("conver: %c\n", attr.conver);
-					count = set_attributes(format, &attr);
+					count = set_attributes(format, &attr, ap);
 					//printf("\ncount: %d\n", count);
 					//printf("precis: %d\n", attr.precis);
 					//printf("conver: %c\n", attr.conver);
