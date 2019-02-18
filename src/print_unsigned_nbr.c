@@ -113,7 +113,7 @@ static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 	len = 0;
 	//printf("precis: %d\n", attr->precis);
 	if (attr->precis == -1 && nbr == 0 && !(attr->conver == 'o' &&
-		attr->flag.sharp))
+		attr->flag.sharp) && attr->conver != 'p')
 		return(NULL);
 	if (!(str = conver_unsigned_to_str(nbr, base, attr)))
 		return (NULL);
@@ -141,9 +141,14 @@ static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 		len = ft_strlen(str) + ft_strlen(sharp);
 		if (!(attr->precis) && attr->width && attr->flag.min_0 == '0')
 			str = put_width(len, str, attr);
-		if(!(str = ft_strjoin(sharp, str)))
-			return (0);
-		ft_strdel(&sharp);
+		if(attr->precis == -1 && attr->conver == 'p' && nbr == 0)
+			str = sharp;
+		else
+		{
+				if(!(str = ft_strjoin(sharp, str)))
+					return (0);
+					ft_strdel(&sharp);
+		}
 	}
 	return(str);
 }

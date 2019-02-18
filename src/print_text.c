@@ -47,28 +47,28 @@ int print_string(va_list ap, int len, t_attribute *attr)
 
 	len = 0;
 	str = va_arg(ap, char *);
-	if(!str)
+	//printf("str: %s\n", str);
+	if(!str && !attr->width)
 	{
 		ft_putstr("(null)");
 		return(6);
 	}
 	conv_prec = NULL;
-	if(attr->precis)// ((!(attr->flag.min_0 == '-') && (attr->precis)))
+	//	return (len);
+	if(attr->precis > 0)// ((!(attr->flag.min_0 == '-') && (attr->precis)))
 	{
 		if (!(conv_prec = ft_strndup(str, attr->precis)))
 			return (0);
 		str = conv_prec;
 	}
-	len = ft_strlen(str);
+	if(attr->precis != -1)
+		len = ft_strlen(str);
 	if ((!(attr->flag.min_0 == '-') && (attr->width)))
-	{
 		len = print_0_space(len, attr);
-	}
-	ft_putstr(str);
+	if(attr->precis != -1)
+		ft_putstr(str);
 	if (attr->flag.min_0 == '-' && attr->width)
-	{
 		len = print_0_space(len, attr);
-	}
 	if(conv_prec)
 		ft_strdel(&conv_prec);
 	return (len);

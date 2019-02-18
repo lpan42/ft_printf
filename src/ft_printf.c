@@ -77,16 +77,18 @@ int		ft_printf(char *format, ...)
 					//printf("precis: %d\n", attr.precis);
 					//printf("conver: %c\n", attr.conver);
 					//printf("sharp: %c\n", attr.flag.sharp);
+					//printf("flag.min_0: %c\n", attr.flag.min_0);
 					format += count;
 					len = print_specifiers(format, &attr, ap);
-					//printf("len: %d\n", len);
+				//	printf("len: %d\n", len);
 					if(!attr.conver)
 						format++;
 					ret += len;
+					//printf("\nret: %d\n", ret);
 					init_attr(&attr);
 			}
 			else
-				return (0);
+				return (ret);
 		}
 		else
 		{
@@ -97,6 +99,6 @@ int		ft_printf(char *format, ...)
 		}
 	}
 	va_end(ap);
-	//printf("\nret: %d\n", ret);
+//printf("\nret: %d\n", ret);
 return (ret);
 }

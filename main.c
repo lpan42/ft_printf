@@ -28,45 +28,25 @@ int main()
 	unsigned char z = 'z';
 	unsigned long ul = 4294967295;
 	unsigned long long ull = 18446744073709551615;
-	double f = 199.99; //double has 15 decimal digits of precision.
+	double f = 999.999876; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
-		printf("re_printf:010.1f: %010.1f\n",f);//
-		ft_printf("ft_printf:010.1f: %010.1f\n", f);//
-		printf("re_printf: +.f: % +.f\n", f);//
-		ft_printf("ft_printf: +.f: % +.f\n", f);//
-		printf("re_printf: 10.15f: %010.15f\n", 0);//
-		ft_printf("ft_printf: 10.15f: %010.15f\n", 0);//
-		ft_printf("\n");
+printf ("Width trick: %0*.*f \n", 20, 2, f);
+
+// printf("%0-3d\n", 0);
+// ft_printf("%0-3d\n", 0);
+// printf("%+03d\n", 0);
+// ft_printf("%+03d\n", 0);
+// printf("%+03d\n", 0);
+// ft_printf("%+03d\n", 0);
+// printf("% 04d\n", 0);
+// ft_printf("% 04d\n", 0);
 /*
+	ft_printf("special test: \n");
 	printf("re_printf: %.4O\n", 42);
 	ft_printf("ft_printf: %.4O\n", 42);
-	printf("@re_printf: %s\n", NULL);
-	ft_printf("ft_printf: %s\n", NULL);
-	printf("%-.2s is a string\n", "this");
-	ft_printf("%-.2s is a string\n", "this");
-	printf("re_printf:% -.3s\n", str);
-	ft_printf("ft_printf:% -.3s\n", str);
-	printf("%-10s is a string\n", "this");
-	ft_printf("%-10s is a string\n", "this");
-	printf("re_printf: -42x: %x\n", -42);
-	ft_printf("ft_printf: -42x: %x\n", -42);
-
-	 printf("re_printf: %05x\n", 0);
-	 ft_printf("ft_printf: %05x\n", 0);
-	printf("re_printf: %05.x\n", 0);
-	ft_printf("ft_printf: %05.x\n", 0);
-	printf("re_printf: %x\n", 0);
-	ft_printf("ft_printf: %x\n", 0);
-	printf("re_printf: %#.0x\n", 0);
-	ft_printf("ft_printf: %#.0x\n", 0);
-	printf("re_printf: %.x\n", 0);
-	ft_printf("ft_printf: %.x\n", 0);
-	printf("\n");
-	ft_printf("special test: \n");
-	printf("re_printf: %");
-	ft_printf("ft_printf: %");
-	printf("\n");
+	printf("re_printf: %\n");
+	ft_printf("ft_printf: %\n");
 	printf("re_printf: % m\n");
 	ft_printf("ft_printf: % m\n");
 	printf("re_printf: % .5m\n");
@@ -94,7 +74,7 @@ int main()
 	printf("re_printf: %s %\n", "test");
 	ft_printf("ft_printf: %s %\n", "test");
 	ft_printf("\n");
-/*
+
 	ft_printf("f: \n");
 	printf("re_printf: 10.15f: %010.15f\n", f);
 	ft_printf("ft_printf: 10.15f: %010.15f\n", f);
@@ -148,24 +128,29 @@ int main()
 	ft_printf("ft_printf: +10.30Lf: %+10.30Lf\n", ld);
 	printf("re_printf: +10.300Lf: %+10.300Lf\n", ld);
 	ft_printf("ft_printf: +10.300Lf: %+10.300Lf\n", ld);
-printf("re_printf: 10.15f: %010.15f\n", 0);//
-ft_printf("ft_printf: 10.15f: %010.15f\n", 0);//
-printf("re_printf: 10.3f: %010.3f\n", -4.99);
-ft_printf("ft_printf: 10.3f: %010.3f\n", -4.99);
-printf("re_printf: 10.f: %0+10.f\n", -4.55);
-ft_printf("ft_printf: 10.f: %0+10.f\n", -4.55);
-printf("re_printf: 10f: %0+10f\n", -4.55);
-ft_printf("ft_printf: 10f: %0+10f\n", -4.55);
-printf("re_printf: 10.0f: %0+10.0f\n", -4.99);
-ft_printf("ft_printf: 10.0f: %0+10.0f\n", -4.99);
-printf("re_printf: 10.15f: %010.2f\n", 1.453443);
-ft_printf("ft_printf: 10.15f: %010.2f\n", 1.453443);
-printf("re_printf: 10.15f: %010.15f\n", f);
-ft_printf("ft_printf: 10.15f: %010.15f\n", f);
-printf("re_printf: 10.15f: %010.15f\n", f);
-ft_printf("ft_printf: 10.15f: %010.15f\n", f);
+		printf("re_printf: 10.15f: %010.15f\n", 0);//
+		ft_printf("ft_printf: 10.15f: %010.15f\n", 0);//
+		printf("re_printf: 10.3f: %010.3f\n", -4.99);
+		ft_printf("ft_printf: 10.3f: %010.3f\n", -4.99);
+		printf("re_printf: 10.f: %0+10.f\n", -4.55);
+		ft_printf("ft_printf: 10.f: %0+10.f\n", -4.55);
+		printf("re_printf: 10f: %0+10f\n", -4.55);
+		ft_printf("ft_printf: 10f: %0+10f\n", -4.55);
+		printf("re_printf: 10.0f: %0+10.0f\n", -4.99);
+		ft_printf("ft_printf: 10.0f: %0+10.0f\n", -4.99);
+		printf("re_printf: 10.15f: %010.2f\n", 1.453443);
+		ft_printf("ft_printf: 10.15f: %010.2f\n", 1.453443);
+		printf("re_printf: 10.15f: %010.15f\n", f);
+		ft_printf("ft_printf: 10.15f: %010.15f\n", f);
+		printf("re_printf: 10.15f: %010.15f\n", f);
+		ft_printf("ft_printf: 10.15f: %010.15f\n", f);
+		printf("re_printf:010.1f: %010.1f\n",f);//
+		ft_printf("ft_printf:010.1f: %010.1f\n", f);//
+		printf("re_printf: +.f: % +.f\n", f);//
+		ft_printf("ft_printf: +.f: % +.f\n", f);//
+		printf("re_printf: 10.15f: %010.15f\n", 0.00);//
+		ft_printf("ft_printf: 10.15f: %010.15f\n", 0.00);//
 ft_printf("\n");
-	ft_printf("\n");
 
 	ft_printf("c: \n");
 	printf("re_printf:%05c\n", c);
@@ -173,10 +158,22 @@ ft_printf("\n");
 	ft_printf("\n");
 
 	ft_printf("s: \n");
+	printf("re_printf: %4.s\n", "42");
+	ft_printf("ft_printf: %4.s\n", "42");
 	printf("re_printf:% 30.3s\n", str);
 	ft_printf("ft_printf:% 30.3s\n", str);
 	printf("re_printf: %saaa%sbbb%sccc\n", "AAA", "BBB", "CCC");
 	ft_printf("ft_printf: %saaa%sbbb%sccc\n", "AAA", "BBB", "CCC");
+	printf("re_printf: %s\n", NULL);
+	ft_printf("ft_printf: %s\n", NULL);
+	printf("%05.s\n", 0);
+	ft_printf("%05.s\n", 0);
+	printf("%-.2s is a string\n", "this");
+	ft_printf("%-.2s is a string\n", "this");
+	printf("re_printf:% -.3s\n", str);
+	ft_printf("ft_printf:% -.3s\n", str);
+	printf("%-10s is a string\n", "this");
+	ft_printf("%-10s is a string\n", "this");
 	ft_printf("\n");
 
 	ft_printf("d&i: \n");
@@ -285,6 +282,8 @@ ft_printf("\n");
 	ft_printf("\n");
 
 	ft_printf("x: \n");
+		printf("re_printf: -42x: %x\n", -42);
+		ft_printf("ft_printf: -42x: %x\n", -42);
 	printf("re_printf: %#.x %#.0x\n", 0, 0);
 	ft_printf("ft_printf: %#.x %#.0x\n", 0, 0);
 	printf("re_printf: %#x\n", 0);
@@ -325,6 +324,16 @@ ft_printf("\n");
 	ft_printf("ft_printf:#015.3x: %#015.3x\n", i);
 	printf("re_printf: %#.x %#.0x\n", 0, 0);
 	ft_printf("ft_printf: %#.x %#.0x\n", 0, 0);
+	printf("re_printf: %05x\n", 0);
+	ft_printf("ft_printf: %05x\n", 0);
+ printf("re_printf: %05.x\n", 0);
+ ft_printf("ft_printf: %05.x\n", 0);
+ printf("re_printf: %x\n", 0);
+ ft_printf("ft_printf: %x\n", 0);
+ printf("re_printf: %#.0x\n", 0);
+ ft_printf("ft_printf: %#.0x\n", 0);
+ printf("re_printf: %.x\n", 0);
+ ft_printf("ft_printf: %.x\n", 0);
 	ft_printf("\n");
 
 	ft_printf("X: \n");
@@ -355,6 +364,10 @@ ft_printf("\n");
 	ft_printf("p: \n");
 	printf("%p\n", 0);
 	ft_printf("%p\n", 0);
+	printf("%.0p, %.p\n", 0, 0);
+	ft_printf("%.0p, %.p\n", 0, 0);
+	printf("%0p, %.p\n", 0, 4);
+	ft_printf("%0p, %.p\n", 0, 4);
 	printf ("p: pointer address: %p \n", str);
 	ft_printf ("p: pointer address: %p \n", str);
 	printf("re_printf:+ 6.6p: %+ 6.6p\n", str);

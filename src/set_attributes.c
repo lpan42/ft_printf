@@ -19,8 +19,8 @@ static int		get_flag(char f, t_attribute *attr)
 	{
 		if(!attr->flag.min_0)
 			attr->flag.min_0 = f;
-		if((attr->flag.plus_spce == '0') && (f == '-'))
-			attr->flag.plus_spce = '-';
+		if((attr->flag.min_0 == '0') && (f == '-'))
+			attr->flag.min_0 = '-';
 		if(attr->flag.min_0 == '-')
 			attr->flag.min_0 = '-';
 		return (1);
