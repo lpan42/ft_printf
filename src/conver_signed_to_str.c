@@ -56,7 +56,10 @@ char			*conver_signed_to_str(intmax_t n)
 	if (n == 0)
 		str[0] = '0';
 	if (n == -9223372036854775807LL - 1LL)
+	{
+		ft_strdel(&str);
 		return (ft_strdup("9223372036854775808"));
+	}
 	//printf("nbr: %jd\n", n);
 	if (n < 0)
 	{

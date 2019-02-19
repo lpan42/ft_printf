@@ -59,14 +59,14 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 			if(str)
 			{
 				if(attr->flag.min_0 != '-')
-					temp = ft_strjoin(space, str);
+					str = ft_strjoin(space, temp);
 				else
-					temp = ft_strjoin(str, space);
-				str = temp;
+					str = ft_strjoin(temp, space);
 				ft_strdel(&space);
 			}
 			else
 				str = space;
+			ft_strdel(&temp);
 		}
 	}
 	return (str);
@@ -100,11 +100,13 @@ static char		*put_flag(intmax_t nbr, t_attribute *attr)
 	char *str;
 	char *sign;
 	char *space;
+	char *temp;
 	int check_min;
 	int len;
 
 	check_min = 0;
 	len = 0;
+	temp = NULL;
 	// printf("attr->precis: %d\n", attr->precis);
 	// printf("nbr: %ju\n", nbr);
 	if (attr->precis == -1 && nbr == 0)
@@ -135,13 +137,19 @@ static char		*put_flag(intmax_t nbr, t_attribute *attr)
 		*space = ' ';
 	if (!(attr->precis) && attr->width && attr->flag.min_0 == '0')
 		str = put_width(len, str, attr);
-	if(!(str = ft_strjoin(sign, str)))
+	temp = str;
+	if(!(str = ft_strjoin(sign, temp)))
 		return (0);
+	ft_strdel(&temp);
 	//printf("\nattr->width: %d\n",attr->width);
 	//printf("check_min: %d\n",check_min);
 	if(!(check_min == 1 && len <= attr->width) && !(check_min == 1 && !attr->width))
-		if(!(str = ft_strjoin(space, str)))
+	{
+		temp = str;
+		if(!(str = ft_strjoin(space, temp)))
 			return (0);
+		ft_strdel(&temp);
+	}
 	ft_strdel(&sign);
 	ft_strdel(&space);
 	return(str);

@@ -66,6 +66,7 @@ int main()
 	ft_printf("f: \n");
 	printf("re_printf: 10.15f: %010.15f\n", f);
 	ft_printf("ft_printf: 10.15f: %010.15f\n", f);
+	/*
 	printf("re_printf: 10.2f: %010.2f\n", 4.999);
 	ft_printf("ft_printf: 10.2f: %010.2f\n", 4.999);
 	printf("re_printf: 010.4f: %010.4f\n", f);

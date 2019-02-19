@@ -66,10 +66,10 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 				else
 					str = ft_strjoin(temp, space);
 				ft_strdel(&space);
-				ft_strdel(&temp);
 			}
 			else
 				str = space;
+			ft_strdel(&temp);
 			//printf("str:%s\n", str);
 			//printf("temp:%s\n", temp);
 			//printf("str_width:%s\n", str);
@@ -108,9 +108,11 @@ static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 {
 	char *str;
 	char *sharp;
+	char *temp;
 	int len;
 
 	sharp = NULL;
+	temp = NULL;
 	len = 0;
 	//printf("precis: %d\n", attr->precis);
 	if (attr->precis == -1 && nbr == 0 && !(attr->conver == 'o' &&
@@ -146,9 +148,11 @@ static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 			str = sharp;
 		else
 		{
-				if(!(str = ft_strjoin(sharp, str)))
+				temp = str;
+				if(!(str = ft_strjoin(sharp, temp)))
 					return (0);
 				ft_strdel(&sharp);
+				ft_strdel(&temp);
 		}
 	}
 	return(str);
