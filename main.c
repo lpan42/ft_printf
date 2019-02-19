@@ -28,7 +28,7 @@ int main()
 	unsigned char z = 'z';
 	unsigned long ul = 4294967295;
 	unsigned long long ull = 18446744073709551615;
-	double f = 999.999876; //double has 15 decimal digits of precision.
+	double f = 999.99998475; //double has 15 decimal digits of precision.
 	long double ld = 42.1234567890123456789012345;
 
 
@@ -134,7 +134,7 @@ int main()
 		printf("re_printf: 10.15f: %010.15f\n", f);
 		ft_printf("ft_printf: 10.15f: %010.15f\n", f);
 		printf("re_printf:010.1f: %010.1f\n",f);//
-		ft_printf("ft_printf:010.1f: %010.1f\n", f);//
+		ft_printf("ft_printf:010.1f: %010.1f\n", f);//*/
 		printf("re_printf: +.f: % +.f\n", f);//
 		ft_printf("ft_printf: +.f: % +.f\n", f);//
 		printf("re_printf: 10.15f: %010.15f\n", 0.00);//

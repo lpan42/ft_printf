@@ -92,7 +92,7 @@ char *rounding_nbr(char *str, int precis)
 	//printf("temp: %s\n", temp);
 	if(temp)
 	{
-		ft_strdel(&str);
+		//ft_strdel(&str);
 		return (temp);
 	}
 	temp = str;
