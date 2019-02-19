@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rounding_float.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lpan <lpan@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/19 14:33:04 by lpan              #+#    #+#             */
+/*   Updated: 2019/02/19 14:33:06 by lpan             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "ft_printf.h"
 #include "libft.h"
@@ -10,8 +22,6 @@ char	*check_9(int count_digit, char *str, int precis)
 	i = 0;
 	temp = NULL;
 //printf("\nstr: %s\n", str);
-//999.99987
-//012345678
 	if(str[0] == '9')
 	{
 		while(i < count_digit + precis)
@@ -81,15 +91,18 @@ char *rounding_nbr(char *str, int precis)
 	temp = check_9(count_digit, str, precis);
 	//printf("temp: %s\n", temp);
 	if(temp)
+	{
+		ft_strdel(&str);
 		return (temp);
+	}
 	temp = str;
 	//printf("temp : %s\n", temp);
 	i = precis + count_digit;
-	if (temp[precis + count_digit + 1] > '4')
+	if(temp[precis + count_digit + 1] > '4')
 	{
 		if(temp[precis + count_digit] != '9')
 			temp[precis + count_digit] += 1;
-		else if (temp[precis + count_digit] == '9')
+		else if(temp[precis + count_digit] == '9')
 		{
 			while(temp[i] == '9')
 			{

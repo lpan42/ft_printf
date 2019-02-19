@@ -6,7 +6,7 @@
 /*   By: lpan <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/11 13:25:50 by lpan              #+#    #+#             */
-/*   Updated: 2019/01/11 13:25:51 by lpan             ###   ########.fr       */
+/*   Updated: 2019/02/19 14:31:47 by lpan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 				if(!(zero = ft_strnew(attr->width - len + 1)))
 				return (0);
 				ft_memset(zero, '0', attr->width - len);
-				temp = ft_strjoin(zero, str);
-				str = temp;
+				str = ft_strjoin(zero, temp);
 				ft_strdel(&zero);
 			}
 			else
@@ -51,12 +50,12 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 					return (0);
 				ft_memset(space, ' ', attr->width - len);
 				if(attr->flag.min_0 != '-')
-					temp = ft_strjoin(space, str);
+					str = ft_strjoin(space, temp);
 				else
-					temp = ft_strjoin(str, space);
-				str = temp;
+					str = ft_strjoin(temp, space);
 				ft_strdel(&space);
 			}
+			ft_strdel(&temp);
 		}
 	}
 	return (str);
@@ -122,9 +121,12 @@ static char		*put_flag(int len, long double nbr, t_attribute *attr)
 	char *sign;
 	char *space;
 	char *dot;
+	char *temp;
 	int check_min;
 
 	check_min = 0;
+	temp = NULL;
+	str = NULL;
 	if(!(sign = ft_strnew(2)))
 		return (0);
 	if(!(space = ft_strnew(2)))
@@ -139,7 +141,8 @@ static char		*put_flag(int len, long double nbr, t_attribute *attr)
 	if (!(str = conver_signed_to_str(nbr)))
 		return (NULL);
 	*dot = '.';
-	if(!(str = ft_strjoin(str, dot)))
+	temp = str;
+	if(!(str = ft_strjoin(temp, dot)))
 		return (0);
 	str = put_precision(nbr, str, attr);
 	if (attr->flag.plus_spce == '+' && nbr >= 0)
@@ -153,13 +156,20 @@ static char		*put_flag(int len, long double nbr, t_attribute *attr)
 		*space = ' ';
 	if (attr->width && attr->flag.min_0 == '0')
 		str = put_width(len, str, attr);
-	if(!(str = ft_strjoin(sign, str)))
+	ft_strdel(&temp);
+	temp = str;
+	if(!(str = ft_strjoin(sign, temp)))
 		return (0);
+	ft_strdel(&temp);
 	//printf("\nattr->width: %d\n",attr->width);
 	//printf("check_min: %d\n",check_min);
 	if(!(check_min == 1 && len <= attr->width) && !(check_min == 1 && !attr->width))
-		if(!(str = ft_strjoin(space, str)))
+	{
+		temp = str;
+		if(!(str = ft_strjoin(space, temp)))
 			return (0);
+		ft_strdel(&temp);
+	}
 	ft_strdel(&sign);
 	ft_strdel(&space);
 	ft_strdel(&dot);
