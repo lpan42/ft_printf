@@ -62,7 +62,7 @@ int main()
 	printf("%*d\n", 5, 42);
 	ft_printf("%*d\n", 5, 42);
 	ft_printf("\n");
-
+/*
 	ft_printf("f: \n");
 	printf("re_printf: 10.15f: %010.15f\n", f);
 	ft_printf("ft_printf: 10.15f: %010.15f\n", f);
@@ -134,13 +134,13 @@ int main()
 		printf("re_printf: 10.15f: %010.15f\n", f);
 		ft_printf("ft_printf: 10.15f: %010.15f\n", f);
 		printf("re_printf:010.1f: %010.1f\n",f);//
-		ft_printf("ft_printf:010.1f: %010.1f\n", f);//*/
+		ft_printf("ft_printf:010.1f: %010.1f\n", f);//
 		printf("re_printf: +.f: % +.f\n", f);//
 		ft_printf("ft_printf: +.f: % +.f\n", f);//
 		printf("re_printf: 10.15f: %010.15f\n", 0.00);//
 		ft_printf("ft_printf: 10.15f: %010.15f\n", 0.00);//
-ft_printf("\n");
-/*
+ft_printf("\n");*/
+
 	ft_printf("c: \n");
 	printf("re_printf:%05c\n", c);
 	ft_printf("ft_printf:%05c\n", c);

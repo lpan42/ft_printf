@@ -114,6 +114,7 @@ static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 
 	sharp = NULL;
 	temp = NULL;
+	str = NULL;
 	len = 0;
 	//printf("precis: %d\n", attr->precis);
 	if (attr->precis == -1 && nbr == 0 && !(attr->conver == 'o' &&
@@ -146,7 +147,10 @@ static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 		if (!(attr->precis) && attr->width && attr->flag.min_0 == '0')
 			str = put_width(len, str, attr);
 		if(attr->precis == -1 && attr->conver == 'p' && nbr == 0)
-			str = sharp;
+		{
+				ft_strdel(&str);
+				return (sharp);
+		}
 		else
 		{
 				temp = str;
