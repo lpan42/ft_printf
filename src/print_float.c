@@ -69,7 +69,7 @@ static char		*put_precision(long double nbr, char *str, t_attribute *attr)
 	int i;
 
 	i = 0;
-	temp = NULL;////////
+	temp = NULL; ////////
 	aft_decimal = NULL;
 	bef_decimal = ft_atoi(str);
 	nbr -= bef_decimal;
