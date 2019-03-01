@@ -38,7 +38,8 @@ char	*conver_unsigned_to_str(uintmax_t n, int base, t_attribute *attr)
 
 	i = 0;
 	len = count_unsigned_digit(n, base);
-	str = malloc(sizeof(char) * (len + 1));
+	if(!(str = malloc(sizeof(char) * (len + 1))))
+		return (0);
 	if (str == NULL)
 		return (NULL);
 	if (n == 0)

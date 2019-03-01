@@ -50,7 +50,7 @@ char			*conver_signed_to_str(intmax_t n)
 	if (n < 0)
 		len++;
 	if(!(str = malloc(sizeof(char) * (len + 1))))
-		return (0);
+		return (0);////////
 	if (str == NULL)
 		return (NULL);
 	if (n == 0)

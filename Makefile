@@ -6,13 +6,13 @@
 #    By: lpan <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/09 14:42:19 by lpan              #+#    #+#              #
-#    Updated: 2018/11/09 14:42:23 by lpan             ###   ########.fr        #
+#    Updated: 2019/03/01 17:17:02 by lpan             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 CC = gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 SRC_DIR = src/
 LIB_DIR = libft/
 INC = -Iincludes/
