@@ -33,7 +33,6 @@ static intmax_t conver_length(va_list ap, t_attribute *attr)
 		nbr = va_arg(ap, size_t);
 	else
 		nbr = va_arg(ap, int);
-	//printf("nbr: %ju\n", nbr);
 	return (nbr);
 }
 
@@ -95,6 +94,7 @@ static char		*put_precision(char *str, t_attribute *attr)
 	}
 	return (str);
 }
+
 static char		*spacemin_addsign(int len, int check_min, char *sign,
 				char *str, t_attribute *attr)
 {

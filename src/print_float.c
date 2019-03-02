@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static long double conver_float_length(va_list ap, t_attribute *attr)
+static long double	conver_float_length(va_list ap, t_attribute *attr)
 {
 	long double nbr;
 
@@ -25,17 +25,17 @@ static long double conver_float_length(va_list ap, t_attribute *attr)
 	return (nbr);
 }
 
-static char *put_width_min(int len, char *str, t_attribute *attr)
+static char	*put_width_min(int len, char *str, t_attribute *attr)
 {
 	char *temp;
 	char *space;
 
 	temp = str;
 	{
-		if(!(space = ft_strnew(attr->width - len + 1)))
+		if (!(space = ft_strnew(attr->width - len + 1)))
 			return (0);
 		ft_memset(space, ' ', attr->width - len);
-		if(attr->flag.min_0 != '-')
+		if (attr->flag.min_0 != '-')
 			str = ft_strjoin(space, temp);
 		else
 			str = ft_strjoin(temp, space);
@@ -53,12 +53,12 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 	temp = str;
 	if (attr->width && attr->flag.min_0 != '-')
 	{
-		if(len < attr->width)
+		if (len < attr->width)
 		{
-			if(attr->flag.min_0 == '0')
+			if (attr->flag.min_0 == '0')
 			{
-				if(!(zero = ft_strnew(attr->width - len + 1)))
-				return (0);
+				if (!(zero = ft_strnew(attr->width - len + 1)))
+					return (0);
 				ft_memset(zero, '0', attr->width - len);
 				str = ft_strjoin(zero, temp);
 				ft_strdel(&zero);
@@ -71,24 +71,25 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 	return (str);
 }
 
-static char		*put_precision_min(long double nbr, char *str, char *aft_decimal)
+static char	*put_precision_min(long double nbr, char *str,
+				char *aft_decimal)
 {
-	char *temp;
-	int bef_decimal;
+	char	*temp;
+	int		bef_decimal;
 
 	bef_decimal = 0;
-	while(nbr != 0)
+	while (nbr != 0)
 	{
 		nbr *= 10;
 		if (!(aft_decimal = conver_signed_to_str(nbr)))
 			return (NULL);
-		if(*aft_decimal <= '3')
+		if (*aft_decimal <= '3')
 		{
 			ft_strdel(&aft_decimal);
-			break;
+			break ;
 		}
 		temp = str;
-		if(!(str = ft_strjoin(temp, aft_decimal)))
+		if (!(str = ft_strjoin(temp, aft_decimal)))
 			return (0);
 		bef_decimal = ft_atoi(aft_decimal);
 		ft_strdel(&temp);
@@ -100,22 +101,22 @@ static char		*put_precision_min(long double nbr, char *str, char *aft_decimal)
 	return (str);
 }
 
-static char		*put_precision_norm(long double nbr, char *str, 
+static char	*put_precision_norm(long double nbr, char *str,
 				char *aft_decimal, int precis)
 {
-	char *temp;
-	int bef_decimal;
-	int i;
+	char	*temp;
+	int		bef_decimal;
+	int		i;
 
 	i = 0;
 	bef_decimal = 0;
-	while(i <= precis)
+	while (i <= precis)
 	{
 		nbr *= 10;
 		if (!(aft_decimal = conver_signed_to_str(nbr)))
 			return (NULL);
 		temp = str;
-		if(!(str = ft_strjoin(temp, aft_decimal)))
+		if (!(str = ft_strjoin(temp, aft_decimal)))
 			return (0);
 		bef_decimal = ft_atoi(aft_decimal);
 		ft_strdel(&temp);
@@ -127,45 +128,92 @@ static char		*put_precision_norm(long double nbr, char *str,
 	return (str);
 }
 
-static char		*put_precision(long double nbr, char *str, t_attribute *attr)
+static char	*put_precision(long double nbr, char *str, t_attribute *attr)
 {
-	char *aft_decimal;
-	char *temp;
-	int bef_decimal;
-	int i;
+	char	*aft_decimal;
+	char	*temp;
+	int		bef_decimal;
+	int		i;
 
 	i = 0;
 	temp = NULL;
 	aft_decimal = NULL;
 	bef_decimal = ft_atoi(str);
 	nbr -= bef_decimal;
-	if(attr->precis == 0)
+	if (attr->precis == 0)
 		attr->precis = 6;
-	if(attr->precis == -1)
+	if (attr->precis == -1)
 		str = put_precision_min(nbr, str, aft_decimal);
 	else
 		str = put_precision_norm(nbr, str, aft_decimal, attr->precis);
 	return (str);
 }
 
-static char		*put_flag(int len, long double nbr, t_attribute *attr)
+static char	*add_space_min(int len, int check_min, char *str, t_attribute *attr)
 {
-	char *str;
-	char *sign;
 	char *space;
+	char *temp;
+
+	temp = str;
+	if (!(space = ft_strnew(2)))
+		return (0);
+	if (attr->flag.plus_spce == ' ')
+		*space = ' ';
+	if (!(check_min == 1 && len <= attr->width) &&
+		!(check_min == 1 && !attr->width))
+	{
+		if (!(str = ft_strjoin(space, temp)))
+			return (0);
+		ft_strdel(&temp);
+	}
+	ft_strdel(&space);
+	return (str);
+}
+
+static char	*add_sign(long double nbr, int check_min, char *str,
+			t_attribute *attr)
+{
+	char *sign;
+	char *temp;
+
+	temp = str;
+	if (!(sign = ft_strnew(2)))
+		return (0);
+	if (attr->flag.plus_spce == '+' && nbr >= 0)
+		*sign = '+';
+	if (check_min == 1)
+		*sign = '-';
+	if (!(str = ft_strjoin(sign, temp)))
+		return (0);
+	ft_strdel(&temp);
+	ft_strdel(&sign);
+	return (str);
+}
+
+static char	*put_dot(char *str)
+{
 	char *dot;
 	char *temp;
-	int check_min;
+
+	temp = NULL;
+	if (!(dot = ft_strnew(2)))
+		return (0);
+	*dot = '.';
+	temp = str;
+	if (!(str = ft_strjoin(temp, dot)))
+		return (0);
+	ft_strdel(&temp);
+	ft_strdel(&dot);
+	return (str);
+}
+
+static char	*put_flag(int len, long double nbr, t_attribute *attr)
+{
+	char	*str;
+	int		check_min;
 
 	check_min = 0;
-	temp = NULL;
 	str = NULL;
-	if(!(sign = ft_strnew(2)))
-		return (0);
-	if(!(space = ft_strnew(2)))
-		return (0);
-	if(!(dot = ft_strnew(2)))
-		return (0);
 	if (nbr < 0)
 	{
 		check_min = 1;
@@ -173,52 +221,31 @@ static char		*put_flag(int len, long double nbr, t_attribute *attr)
 	}
 	if (!(str = conver_signed_to_str(nbr)))
 		return (NULL);
-	*dot = '.';
-	temp = str;
-	if(!(str = ft_strjoin(temp, dot)))
-		return (0);
-	ft_strdel(&temp);
+	str = put_dot(str);
 	str = put_precision(nbr, str, attr);
-	if (attr->flag.plus_spce == '+' && nbr >= 0)
-		*sign = '+';
-	if (check_min == 1)
-		*sign = '-';
-	if (attr->flag.plus_spce == ' ')
-		*space = ' ';
 	len = ft_strlen(str);
-	if(attr->flag.plus_spce == '+' || attr->flag.min_0 == '-' || check_min == 1)
+	if (attr->flag.plus_spce == '+' || attr->flag.min_0 == '-'
+		|| check_min == 1)
 		len++;
 	if (attr->width && attr->flag.min_0 == '0')
 		str = put_width(len, str, attr);
-	temp = str;
-	if(!(str = ft_strjoin(sign, temp)))
-		return (0);
-	ft_strdel(&temp);
-	if(!(check_min == 1 && len <= attr->width) && !(check_min == 1 && !attr->width))
-	{
-		temp = str;
-		if(!(str = ft_strjoin(space, temp)))
-			return (0);
-		ft_strdel(&temp);
-	}
-	ft_strdel(&sign);
-	ft_strdel(&space);
-	ft_strdel(&dot);
-	return(str);
+	str = add_sign(nbr, check_min, str, attr);
+	str = add_space_min(len, check_min, str, attr);
+	return (str);
 }
 
-int		print_float(va_list ap, int len, t_attribute *attr)
+int			print_float(va_list ap, int len, t_attribute *attr)
 {
-		long double	nbr;
-		char	*str;
+	long double		nbr;
+	char			*str;
 
-		nbr = 0;
-		nbr = conver_float_length(ap, attr);
-		str = put_flag(len, nbr, attr);
-		len = ft_strlen(str);
-		str = put_width(len, str, attr);
-		ft_putstr(str);
-		len = ft_strlen(str);
-		ft_strdel(&str);
-		return (len);
+	nbr = 0;
+	nbr = conver_float_length(ap, attr);
+	str = put_flag(len, nbr, attr);
+	len = ft_strlen(str);
+	str = put_width(len, str, attr);
+	ft_putstr(str);
+	len = ft_strlen(str);
+	ft_strdel(&str);
+	return (len);
 }
