@@ -135,6 +135,7 @@ static char		*add_space(char *str, t_attribute *attr)
 	ft_strdel(&space);
 	return (str);
 }
+
 static int		count_len(char *str, t_attribute *attr, int check_min)
 {
 	int len;

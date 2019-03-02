@@ -10,11 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ft_printf.h"
 #include "libft.h"
 
-static uintmax_t conver_length(va_list ap, t_attribute *attr)
+static uintmax_t	conver_length(va_list ap, t_attribute *attr)
 {
 	uintmax_t nbr;
 	nbr = 0;
@@ -34,67 +33,65 @@ static uintmax_t conver_length(va_list ap, t_attribute *attr)
 		nbr = (size_t)va_arg(ap, void *);
 	else
 		nbr = va_arg(ap, unsigned int);
-	//printf("nbr: %ju\n", nbr);
-	//printf("nbr: ju\n");
 	return (nbr);
+}
+
+static char	*put_width_join_space(char *str, char *space, t_attribute *attr)
+{
+	char *temp;
+
+	temp = str;
+	if (attr->flag.min_0 != '-')
+		str = ft_strjoin(space, temp);
+	else
+		str = ft_strjoin(temp, space);
+	ft_strdel(&space);
+	ft_strdel(&temp);
+	return (str);
 }
 
 static char	*put_width(int len, char *str, t_attribute *attr)
 {
-	char *space;
-	char *temp;
+	char	*space;
 
-	temp = str;
-	//printf("temp:%s\n", temp);
-	//printf("str:%s\n", str);
 	if (attr->width)
 	{
-		//printf("attr->width:%d\n", attr->width);
-		if(len < attr->width)
+		if (len < attr->width)
 		{
-			if(!(space = ft_strnew(attr->width - len + 1)))
+			if (!(space = ft_strnew(attr->width - len + 1)))
 				return (0);
-			if(attr->flag.min_0 == '0' && !(attr->precis))
+			if (attr->flag.min_0 == '0' && !(attr->precis) &&
+				attr->flag.plus_spce != ' ')
 				ft_memset(space, '0', attr->width - len);
+			else if (attr->flag.min_0 == '0' && !(attr->precis) &&
+				attr->flag.plus_spce == ' ')
+				ft_memset(space, '0', attr->width - len - 1);
 			else
 				ft_memset(space, ' ', attr->width - len);
-			//printf("space:%s\n", space);
-			//printf("str:%s\n", str);
-			if(str)
-			{
-				if(attr->flag.min_0 != '-')
-					str = ft_strjoin(space, temp);
-				else
-					str = ft_strjoin(temp, space);
-				ft_strdel(&space);
-			}
+			if (str)
+				str = put_width_join_space(str, space, attr);
 			else
 				str = space;
-			ft_strdel(&temp);
-			//printf("str:%s\n", str);
-			//printf("temp:%s\n", temp);
-			//printf("str_width:%s\n", str);
 		}
-	//ft_strdel(&temp);
 	}
 	return (str);
 }
 
 static char		*put_precision(char *str, t_attribute *attr)
 {
-	char *zero;
-	int len;
-	char *temp;
+	char	*zero;
+	int		len;
+	char	*temp;
 
 	len = ft_strlen(str);
 	temp = str;
-	if(attr->conver == 'o' && attr->flag.sharp)
+	if (attr->conver == 'o' && attr->flag.sharp)
 		len++;
 	if (attr->precis)
 	{
-		if(len < attr->precis)
+		if (len < attr->precis)
 		{
-			if(!(zero = ft_strnew(attr->precis - len + 1)))
+			if (!(zero = ft_strnew(attr->precis - len + 1)))
 				return (0);
 			ft_memset(zero, '0', attr->precis - len);
 			str = ft_strjoin(zero, temp);
@@ -105,79 +102,89 @@ static char		*put_precision(char *str, t_attribute *attr)
 	return (str);
 }
 
+static char		*reading_sharp(t_attribute *attr)
+{
+	char *sharp;
+
+	if (attr->conver == 'o')
+	{
+		if (!(sharp = ft_strnew(2)))
+			return (0);
+		sharp[0] = '0';
+	}
+	if ((attr->conver == 'x' || attr->conver == 'X' || attr->conver == 'p'))
+	{
+		if (!(sharp = ft_strnew(3)))
+			return (0);
+		sharp[0] = '0';
+		if (attr->conver == 'x' || attr->conver == 'p')
+			sharp[1] = 'x';
+		else if (attr->conver == 'X')
+			sharp[1] = 'X';
+	}
+	return (sharp);
+}
+
+static char		*printing_sharp(t_attribute *attr, char *str, uintmax_t nbr,
+				char *sharp)
+{
+	char *temp;
+
+	temp = str;
+	if (attr->precis == -1 && attr->conver == 'p' && nbr == 0)
+	{
+		ft_strdel(&str);
+		return (sharp);
+	}
+	else
+	{
+		if (!(str = ft_strjoin(sharp, temp)))
+			return (0);
+		ft_strdel(&sharp);
+		ft_strdel(&temp);
+	}
+	return (str);
+}
+
 static char		*put_flag(uintmax_t nbr, t_attribute *attr, int base)
 {
-	char *str;
-	char *sharp;
-	char *temp;
-	int len;
+	char	*str;
+	char	*sharp;
+	int		len;
 
 	sharp = NULL;
-	temp = NULL;
 	str = NULL;
 	len = 0;
-	//printf("precis: %d\n", attr->precis);
 	if (attr->precis == -1 && nbr == 0 && !(attr->conver == 'o' &&
 		attr->flag.sharp) && attr->conver != 'p')
-		return(NULL);
+		return (NULL);
 	if (!(str = conver_unsigned_to_str(nbr, base, attr)))
 		return (NULL);
-	//printf("str_pre: %s\n", str);
 	str = put_precision(str, attr);
-	//printf("str_pre: %s\n", str);
-	if((attr->flag.sharp && nbr != 0) || (attr->flag.sharp && attr->conver == 'p'))
+	if ((attr->flag.sharp && nbr != 0) ||
+		(attr->flag.sharp && attr->conver == 'p'))
 	{
-		if(attr->conver == 'o')
-		{
-			if(!(sharp = ft_strnew(2)))
-				return (0);
-			sharp[0] = '0';
-		}
-		if((attr->conver == 'x' || attr->conver == 'X' || attr->conver == 'p'))
-		{
-			if(!(sharp = ft_strnew(3)))
-				return (0);
-			sharp[0] = '0';
-			if(attr->conver == 'x' || attr->conver == 'p' )
-				sharp[1] = 'x';
-			else if(attr->conver == 'X')
-				sharp[1] = 'X';
-		}
+		sharp = reading_sharp(attr);
 		len = ft_strlen(str) + ft_strlen(sharp);
 		if (!(attr->precis) && attr->width && attr->flag.min_0 == '0')
 			str = put_width(len, str, attr);
-		if(attr->precis == -1 && attr->conver == 'p' && nbr == 0)
-		{
-				ft_strdel(&str);
-				return (sharp);
-		}
-		else
-		{
-				temp = str;
-				if(!(str = ft_strjoin(sharp, temp)))
-					return (0);
-				ft_strdel(&sharp);
-				ft_strdel(&temp);
-		}
+		str = printing_sharp(attr, str, nbr, sharp);
 	}
-	return(str);
+	return (str);
 }
 
 int		print_unsigned_nbr(va_list ap, int len, t_attribute *attr, int base)
 {
 	uintmax_t		nbr;
-	char	*str;
+	char			*str;
 
 	nbr = 0;
 	nbr = conver_length(ap, attr);
 	str = put_flag(nbr, attr, base);
-	//printf("str_flag: %s\n", str);
 	if (str)
 		len = ft_strlen(str);
-	//printf("len: %d\n", len);
 	str = put_width(len, str, attr);
-	//printf("str: %s\n", str);
-	if(str)
+	if (str)
 	{
 		ft_putstr(str);
 		len = ft_strlen(str);
