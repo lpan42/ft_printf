@@ -25,9 +25,28 @@ static long double conver_float_length(va_list ap, t_attribute *attr)
 	return (nbr);
 }
 
+static char *put_width_min(int len, char *str, t_attribute *attr)
+{
+	char *temp;
+	char *space;
+
+	temp = str;
+	{
+		if(!(space = ft_strnew(attr->width - len + 1)))
+			return (0);
+		ft_memset(space, ' ', attr->width - len);
+		if(attr->flag.min_0 != '-')
+			str = ft_strjoin(space, temp);
+		else
+			str = ft_strjoin(temp, space);
+		ft_strdel(&space);
+		ft_strdel(&temp);
+	}
+	return (str);
+}
+
 static char	*put_width(int len, char *str, t_attribute *attr)
 {
-	char *space;
 	char *temp;
 	char *zero;
 
@@ -43,21 +62,68 @@ static char	*put_width(int len, char *str, t_attribute *attr)
 				ft_memset(zero, '0', attr->width - len);
 				str = ft_strjoin(zero, temp);
 				ft_strdel(&zero);
+				ft_strdel(&temp);
 			}
 			else
-			{
-				if(!(space = ft_strnew(attr->width - len + 1)))
-					return (0);
-				ft_memset(space, ' ', attr->width - len);
-				if(attr->flag.min_0 != '-')
-					str = ft_strjoin(space, temp);
-				else
-					str = ft_strjoin(temp, space);
-				ft_strdel(&space);
-			}
-			ft_strdel(&temp);
+				str = put_width_min(len, str, attr);
 		}
 	}
+	return (str);
+}
+
+static char		*put_precision_min(long double nbr, char *str, char *aft_decimal)
+{
+	char *temp;
+	int bef_decimal;
+
+	bef_decimal = 0;
+	while(nbr != 0)
+	{
+		nbr *= 10;
+		if (!(aft_decimal = conver_signed_to_str(nbr)))
+			return (NULL);
+		if(*aft_decimal <= '3')
+		{
+			ft_strdel(&aft_decimal);
+			break;
+		}
+		temp = str;
+		if(!(str = ft_strjoin(temp, aft_decimal)))
+			return (0);
+		bef_decimal = ft_atoi(aft_decimal);
+		ft_strdel(&temp);
+		ft_strdel(&aft_decimal);
+		nbr -= bef_decimal;
+	}
+	str = rounding_nbr(str, 2);
+	str = rounding_nbr_excp(str);
+	return (str);
+}
+
+static char		*put_precision_norm(long double nbr, char *str, 
+				char *aft_decimal, int precis)
+{
+	char *temp;
+	int bef_decimal;
+	int i;
+
+	i = 0;
+	bef_decimal = 0;
+	while(i <= precis)
+	{
+		nbr *= 10;
+		if (!(aft_decimal = conver_signed_to_str(nbr)))
+			return (NULL);
+		temp = str;
+		if(!(str = ft_strjoin(temp, aft_decimal)))
+			return (0);
+		bef_decimal = ft_atoi(aft_decimal);
+		ft_strdel(&temp);
+		ft_strdel(&aft_decimal);
+		nbr -= bef_decimal;
+		i++;
+	}
+	str = rounding_nbr(str, precis);
 	return (str);
 }
 
@@ -76,46 +142,9 @@ static char		*put_precision(long double nbr, char *str, t_attribute *attr)
 	if(attr->precis == 0)
 		attr->precis = 6;
 	if(attr->precis == -1)
-	{
-		while(nbr != 0)
-		{
-			nbr *= 10;
-			if (!(aft_decimal = conver_signed_to_str(nbr)))
-				return (NULL);
-			if(*aft_decimal <= '3')
-			{
-				ft_strdel(&aft_decimal);
-				break;
-			}
-			temp = str;
-			if(!(str = ft_strjoin(temp, aft_decimal)))
-				return (0);
-			bef_decimal = ft_atoi(aft_decimal);
-			ft_strdel(&temp);
-			ft_strdel(&aft_decimal);
-			nbr -= bef_decimal;
-		}
-		str = rounding_nbr(str, 2);
-		str = rounding_nbr_excp(str);
-	}
+		str = put_precision_min(nbr, str, aft_decimal);
 	else
-	{
-		while(i <= attr->precis)
-		{
-			nbr *= 10;
-			if (!(aft_decimal = conver_signed_to_str(nbr)))
-				return (NULL);
-			temp = str;
-			if(!(str = ft_strjoin(temp, aft_decimal)))
-				return (0);
-			bef_decimal = ft_atoi(aft_decimal);
-			ft_strdel(&temp);
-			ft_strdel(&aft_decimal);
-			nbr -= bef_decimal;
-			i++;
-		}
-		str = rounding_nbr(str, attr->precis);
-	}
+		str = put_precision_norm(nbr, str, aft_decimal, attr->precis);
 	return (str);
 }
 
