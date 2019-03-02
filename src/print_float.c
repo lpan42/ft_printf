@@ -69,19 +69,17 @@ static char		*put_precision(long double nbr, char *str, t_attribute *attr)
 	int i;
 
 	i = 0;
-	temp = NULL; ////////
+	temp = NULL;
 	aft_decimal = NULL;
 	bef_decimal = ft_atoi(str);
 	nbr -= bef_decimal;
 	if(attr->precis == 0)
 		attr->precis = 6;
-	//printf("attr->precis:%d\n", attr->precis);
 	if(attr->precis == -1)
 	{
 		while(nbr != 0)
 		{
 			nbr *= 10;
-			//printf("nbr:%Lf\n", nbr);
 			if (!(aft_decimal = conver_signed_to_str(nbr)))
 				return (NULL);
 			if(*aft_decimal <= '3')
@@ -92,18 +90,12 @@ static char		*put_precision(long double nbr, char *str, t_attribute *attr)
 			temp = str;
 			if(!(str = ft_strjoin(temp, aft_decimal)))
 				return (0);
-			//printf("\naft_decimal: %s\n", aft_decimal);
 			bef_decimal = ft_atoi(aft_decimal);
-			//printf("bef_decimal:%d\n", bef_decimal);
 			ft_strdel(&temp);
-			ft_strdel(&aft_decimal);////////
+			ft_strdel(&aft_decimal);
 			nbr -= bef_decimal;
 		}
-		//printf("\naft_decimal: %s\n", aft_decimal);
-		//printf("\ntemp: %s\n", temp);
-		//printf("\nstr: %s\n", str);
 		str = rounding_nbr(str, 2);
-		//printf("str: %s\n", str);
 		str = rounding_nbr_excp(str);
 	}
 	else
@@ -118,14 +110,12 @@ static char		*put_precision(long double nbr, char *str, t_attribute *attr)
 				return (0);
 			bef_decimal = ft_atoi(aft_decimal);
 			ft_strdel(&temp);
-			ft_strdel(&aft_decimal);////////
+			ft_strdel(&aft_decimal);
 			nbr -= bef_decimal;
 			i++;
 		}
-	//	printf("\nstr: %s\n", str);
 		str = rounding_nbr(str, attr->precis);
 	}
-	//printf("str: %s\n", str);
 	return (str);
 }
 
@@ -175,8 +165,6 @@ static char		*put_flag(int len, long double nbr, t_attribute *attr)
 	if(!(str = ft_strjoin(sign, temp)))
 		return (0);
 	ft_strdel(&temp);
-	//printf("\nattr->width: %d\n",attr->width);
-	//printf("check_min: %d\n",check_min);
 	if(!(check_min == 1 && len <= attr->width) && !(check_min == 1 && !attr->width))
 	{
 		temp = str;
